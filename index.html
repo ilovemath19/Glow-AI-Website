@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+@media(max-width:1100px){nav{height:64px;padding:0 10px;gap:8px;overflow:visible}nav .links{display:flex!important;gap:10px;margin-left:8px;font-size:11px;flex:1;min-width:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none}.links::-webkit-scrollbar{display:none}nav>div:last-child{display:flex!important;flex-direction:row!important;align-items:center;justify-content:flex-end;gap:8px;flex:0 0 auto;min-width:0;white-space:nowrap}.account-btn{margin:0!important;padding:9px 10px;gap:5px;white-space:nowrap;font-size:12px;flex:0 0 auto}.navbtn{padding:9px 11px;white-space:nowrap;font-size:12px;flex:0 0 auto}.brand{font-size:18px;flex:1;min-width:0}.brand span{display:inline}}
+</style>
+<style>
+@media(max-width:1100px){
+nav{padding:0 10px;gap:8px;overflow:visible}
+nav>div:last-child{display:flex!important;flex-direction:row!important;align-items:center;justify-content:flex-end;gap:6px;flex:0 0 auto;min-width:0;white-space:nowrap}
+nav>div:last-child .account-btn{margin:0!important;padding:9px 10px!important;gap:5px;white-space:nowrap;font-size:12px;flex:0 0 auto}
+nav>div:last-child .navbtn{margin:0!important;padding:9px 12px!important;white-space:nowrap;font-size:12px;flex:0 0 auto}
+}
+@media(max-width:700px){
+nav{height:64px}
+.brand{font-size:16px}
+nav .links{display:flex!important;gap:6px;margin-left:6px;font-size:10px;flex:1;min-width:0;justify-content:center;overflow:hidden}
+
+nav .links span{white-space:nowrap;flex:0 0 auto}
+nav>div:last-child{gap:6px}
+nav>div:last-child .account-btn,nav>div:last-child .navbtn{padding:9px 8px!important;font-size:10px;line-height:1}
+nav>div:last-child .account-btn{margin-left:0!important;margin-right:0!important}
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlowAI — Personalized Beauty & Glow-Up</title>
+<link rel="icon" type="image/png" href="glow-favicon.png">
+<link rel="apple-touch-icon" href="glow-favicon.png">
+<meta name="description" content="GlowAI is your AI-powered beauty store and personal glow-up coach. Build personalized skincare, hair, fitness and style routines.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GlowAI — Your AI Glow-Up Coach">
+<meta property="og:description" content="Build your best glow-up with personalized beauty guidance, routines and products from GlowAI.">
+<meta property="og:url" content="https://glowai.glowai.workers.dev/">
+<meta property="og:site_name" content="GlowAI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GlowAI — Your AI Glow-Up Coach">
+<meta name="twitter:description" content="Personalized beauty guidance, routines and products in one place.">
+<style>
+:root{color-scheme:dark;--bg:#171116;--surface:#21191f;--surface2:#2b2028;--text:#f9edf3;--muted:#bcaab3;--border:#3d3038;--accent:#e85b91;--accent2:#a85de8;--good:#38a77a;}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
+#app{min-height:100vh;background:var(--bg)}
+nav{height:72px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;position:sticky;top:0;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);z-index:5}.brand{font-weight:800;font-size:21px;letter-spacing:-.6px}.brand span{color:var(--accent)}nav .links{display:flex;gap:22px;margin-left:48px;font-size:14px;color:var(--muted)}nav .links span{cursor:pointer;white-space:nowrap}nav .links span:hover{color:var(--text)}button{border:0;font:inherit;cursor:pointer}.navbtn,.primary,.ghost{border-radius:12px;padding:11px 16px}.navbtn{background:var(--text);color:var(--bg);font-family:inherit;font-weight:700;text-transform:none}
+.account-btn{display:inline-flex;align-items:center;gap:8px}.account-user-icon{width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:13px;line-height:1}
+.account-btn{margin-left:10px;margin-right:16px;border:1px solid var(--border);border-radius:12px;padding:11px 14px;background:var(--surface);color:var(--text)}.auth-choice{display:block;width:100%;padding:13px 15px;border-radius:12px;text-align:center;font-weight:750;text-decoration:none;margin:12px 0}.auth-shopify{background:var(--text);color:var(--bg)}.auth-divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px;margin:16px 0}.auth-divider:before,.auth-divider:after{content:'';height:1px;background:var(--border);flex:1}.auth-field{display:block;width:100%;padding:13px 14px;margin:8px 0 13px;border:1px solid var(--border);border-radius:11px;background:var(--bg);color:var(--text);font:inherit}.auth-note{font-size:12px;color:var(--muted);line-height:1.5}.auth-disabled{width:100%;opacity:.55;cursor:not-allowed}
+.hero{max-width:1180px;margin:auto;padding:72px 6vw 45px;display:grid;grid-template-columns:1.1fr .9fr;gap:55px;align-items:center}.eyebrow{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--surface2);color:var(--accent);font-size:12px;font-weight:700}.hero h1{font-size:clamp(44px,6vw,76px);line-height:.98;letter-spacing:-4px;margin:18px 0}.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}.hero p{font-size:18px;line-height:1.65;color:var(--muted);max-width:620px}.actions{display:flex;gap:12px;margin-top:25px}.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-weight:750}.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.phone{background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:14px;box-shadow:0 24px 70px rgba(160,70,120,.15);transform:rotate(1.5deg)}.phonebar{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;padding:7px 9px}.score{padding:22px;border-radius:20px;background:linear-gradient(145deg,#33222b,#292136)}.score .big{font-size:58px;font-weight:850;letter-spacing:-3px}.meter{height:9px;background:var(--border);border-radius:99px;overflow:hidden;margin:12px 0}.meter i{display:block;width:78%;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:inherit}.mini{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.mini div{padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.section{max-width:1180px;margin:auto;padding:55px 6vw}.section h2{font-size:34px;letter-spacing:-1.5px;margin:0 0 10px}.section>p{color:var(--muted);line-height:1.6}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:25px}.card{background:var(--surface);border:1px solid var(--border);padding:23px;border-radius:20px}.icon{font-size:25px}.card h3{margin:15px 0 7px}.card p{color:var(--muted);font-size:14px;line-height:1.55}.analyze{margin-top:18px;display:none;background:var(--surface2);border-radius:18px;padding:18px}.analyze.show{display:block}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.chip{padding:7px 10px;border:1px solid var(--border);border-radius:999px;font-size:12px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:18px}.num{color:var(--accent);font-weight:800}.step p{font-size:13px;color:var(--muted);line-height:1.5}.cta{max-width:1000px;margin:40px auto 70px;padding:48px 6vw;text-align:center;border-radius:30px;background:linear-gradient(120deg,#2a1b24,#271e32);color:#fff}.cta p{color:#d9cbd2;max-width:620px;margin:12px auto 24px;line-height:1.6}.disclaimer{font-size:11px!important;color:var(--muted)!important;max-width:760px!important}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modal.open{display:flex}.dialog{width:min(560px,100%);background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:25px}.dialog textarea{width:100%;height:120px;margin:15px 0;padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--bg);color:var(--text);resize:vertical}.close{float:right;background:transparent;color:var(--muted);font-size:20px}@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:45px}.cards,.steps{grid-template-columns:1fr}.links{display:none}.hero h1{letter-spacing:-2.5px}.phone{transform:none}}
+</style>
+<style>
+#product-component-1791170337196,#product-component-1791171790750{display:none!important}
+</style>
+<style>
+#glow-cart-trigger{position:relative;margin-left:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;padding:11px 14px;font:inherit;cursor:pointer}#glow-cart-count{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-left:5px;padding:0 5px;border-radius:99px;background:var(--accent);color:#fff;font-size:12px;font-weight:800}#glow-cart-overlay{position:fixed;inset:0;background:#0008;z-index:40;opacity:0;visibility:hidden;transition:.2s}#glow-cart-overlay.open{opacity:1;visibility:visible}#glow-cart-drawer{position:fixed;z-index:41;right:0;top:0;height:100dvh;width:min(430px,100%);background:var(--surface);border-left:1px solid var(--border);box-shadow:-18px 0 55px #0002;transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;color:var(--text)}#glow-cart-drawer.open{transform:translateX(0)}.glow-cart-head{display:flex;align-items:center;justify-content:space-between;padding:22px;border-bottom:1px solid var(--border)}.glow-cart-head h2{margin:0;font-size:21px}.glow-cart-close{border:0;background:transparent;color:var(--text);font-size:28px;cursor:pointer}.glow-cart-items{padding:18px 22px;overflow:auto;flex:1}.glow-cart-item{padding:14px 0;border-bottom:1px solid var(--border)}.glow-cart-item strong{display:block;margin-bottom:7px}.glow-cart-controls{display:flex;align-items:center;gap:10px;margin-top:9px}.glow-cart-controls button{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:8px;padding:5px 10px;cursor:pointer}.glow-cart-remove{margin-left:auto;color:var(--accent)!important}.glow-cart-foot{padding:20px 22px;border-top:1px solid var(--border)}.glow-cart-subtotal{display:flex;justify-content:space-between;font-weight:750;margin-bottom:14px}.glow-cart-checkout{display:block;width:100%;padding:14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;text-align:center;text-decoration:none;font-weight:800;border:0;cursor:pointer}.glow-cart-note{font-size:12px;color:var(--muted);line-height:1.5;margin:10px 0 0}.glow-cart-empty,.glow-cart-status{color:var(--muted);line-height:1.6;text-align:center;padding:30px 8px}
+</style>
+<style>#glow-cart-trigger{display:none!important}.shopify-buy__cart-wrapper,.shopify-buy__cart-toggle,.shopify-buy__cart{display:none!important}</style>
+<style>
+.glow-chat-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 8px}.glow-chat-tools button,.glow-chat-history button{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:10px;padding:8px 11px;text-align:left;cursor:pointer}.glow-chat-history{display:flex;gap:7px;overflow-x:auto;padding:4px 0 10px}.glow-chat-history button{min-width:130px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}.glow-chat-history button.active{border-color:var(--accent);color:var(--accent)}.glow-chat-transcript{max-height:260px;overflow:auto;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg);white-space:pre-wrap;line-height:1.55;margin-top:12px;font-size:14px}.glow-chat-empty{color:var(--muted);font-size:12px;margin:4px 0 10px}
+.glow-chat-message{margin:0 0 14px;padding:10px 12px;border-radius:12px;background:var(--surface2);line-height:1.55;white-space:pre-wrap}.glow-chat-message:last-child{margin-bottom:0}.glow-chat-message-label{display:block;margin-bottom:4px;font-size:12px;font-weight:850;letter-spacing:.3px;color:var(--accent)}.glow-chat-delete{color:#d85d78!important}
+.glow-product-rating{display:flex;align-items:center;gap:7px;margin-top:11px;font-size:13px}.glow-product-stars{display:inline-flex;gap:1px}.glow-product-star{border:0;background:transparent;color:#d9cbd2;padding:0;font-size:18px;line-height:1;cursor:pointer}.glow-product-star.active{color:#e8a33a}.glow-product-rating-text{color:var(--muted);font-size:12px}.glow-product-rating-locked{font-size:11px;color:var(--muted);margin-top:4px}.glow-order-history{margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}.glow-order-history h3{margin:0 0 8px}.glow-order-history p{color:var(--muted);font-size:12px;line-height:1.5}.glow-order-history a{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;margin-top:12px;padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff!important;font-weight:800;text-align:center;text-decoration:none!important;box-shadow:0 8px 20px rgba(168,93,232,.18);transition:transform .15s ease,opacity .15s ease}.glow-order-history a:hover{transform:translateY(-1px);opacity:.95}
+</style>
+
+<style>
+/* Mobile GlowAI chat: keep the entire composer usable inside the viewport */
+@media (max-width: 700px){
+  #modal{
+    padding:0;
+    align-items:stretch;
+    justify-content:stretch;
+    overflow:hidden;
+    z-index:50;
+  }
+  #modal .dialog{
+    width:100%;
+    max-width:none;
+    height:100dvh;
+    max-height:100dvh;
+    min-height:0;
+    border-radius:0;
+    border:0;
+    padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  #modal .dialog > .close{
+    position:absolute;
+    top:calc(10px + env(safe-area-inset-top));
+    right:12px;
+    z-index:2;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:var(--surface2);
+    font-size:24px;
+    line-height:36px;
+  }
+  #modal .dialog > h2{
+    font-size:25px !important;
+    line-height:1.1;
+    margin:2px 42px 5px 0 !important;
+    letter-spacing:-.7px;
+  }
+  #modal .dialog > p{
+    font-size:13px !important;
+    line-height:1.35;
+    margin:0 38px 10px 0 !important;
+  }
+  #modal .glow-chat-tools{
+    margin:2px 0 6px;
+    gap:7px;
+    align-items:center;
+  }
+  #modal .glow-chat-tools > b{font-size:12px !important}
+  #modal .glow-chat-tools > div{gap:5px !important}
+  #modal .glow-chat-tools button{
+    padding:7px 9px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+  #modal .glow-chat-history{
+    min-height:36px;
+    padding:2px 0 6px;
+    margin:0;
+    flex:0 0 auto;
+  }
+  #modal .glow-chat-history button{
+    min-width:120px;
+    max-width:150px;
+    padding:7px 9px;
+    font-size:11px;
+  }
+  #modal .glow-chat-empty{
+    font-size:11px;
+    margin:1px 0 5px;
+  }
+  #modal .glow-chat-transcript{
+    flex:1 1 auto;
+    min-height:0;
+    max-height:none;
+    margin:4px 0 8px;
+    padding:10px;
+    font-size:13px;
+    line-height:1.45;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  #modal .glow-image-tools{
+    flex:0 0 auto;
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    gap:7px !important;
+    margin:0 0 5px !important;
+  }
+  #modal .glow-image-tools button{
+    width:100%;
+    min-height:42px;
+    padding:8px 6px !important;
+    text-align:center;
+    font-size:13px;
+  }
+  #modal #glow-image-status{
+    grid-column:1 / -1;
+    font-size:10px !important;
+    line-height:1.25;
+    text-align:center;
+    margin:0;
+  }
+  #modal #glow-image-preview{
+    flex:0 0 auto;
+    margin:4px 0 6px !important;
+  }
+  #modal #glow-preview-img{
+    max-width:90px !important;
+    max-height:90px !important;
+  }
+  #modal #glow-image-preview button{
+    left:65px !important;
+    top:3px !important;
+  }
+  /* iOS Safari zooms focused form controls smaller than 16px.
+     Keep chat inputs at 16px so tapping them does not zoom the page. */
+  #modal input,
+  #modal textarea,
+  #modal select,
+  #modal #goal{
+    font-size:16px !important;
+  }
+  #modal #goal{
+    flex:0 0 auto;
+    width:100%;
+    height:62px !important;
+    min-height:62px;
+    max-height:90px;
+    margin:5px 0 7px !important;
+    padding:10px 12px;
+    line-height:1.35;
+  }
+  #modal #glowai-send{
+    flex:0 0 auto;
+    width:100%;
+    min-height:44px;
+    padding:11px 14px;
+    font-size:14px;
+  }
+}
+
+/* On mobile, hide the floating cart while the AI chat is open so it never covers the composer. */
+@media (max-width: 760px){
+  body.glow-ai-chat-open #glow-cart-floating{display:none !important;}
+}
+</style>
+
+
+<style id="glow-plus-dedicated-checkout-css">
+.glow-plus-checkout-dialog{position:relative}
+.glow-plus-checkout-card{
+  margin:20px 0 10px;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:linear-gradient(145deg,var(--surface),var(--surface2));
+  box-shadow:0 12px 35px rgba(0,0,0,.06)
+}
+.glow-plus-checkout-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  font-weight:850;
+  font-size:18px
+}
+#glow-plus-checkout-price{
+  color:var(--accent);
+  font-size:15px;
+  white-space:nowrap
+}
+.glow-plus-checkout-divider{
+  height:1px;
+  background:var(--border);
+  margin:15px 0
+}
+.glow-plus-checkout-benefits{
+  display:grid;
+  gap:10px;
+  color:var(--muted);
+  line-height:1.45;
+  font-size:14px
+}
+.glow-plus-plan-status{
+  min-height:18px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4
+}
+#glow-plus-checkout-button:disabled{opacity:.65;cursor:wait}
+</style>
+
+
+<style id="glowai-plus-marketing-css">
+.glowai-plus-marketing{
+  padding:80px 20px;
+  background:linear-gradient(180deg,rgba(255,240,248,.35),transparent);
+}
+.glowai-plus-marketing-inner{max-width:1100px;margin:0 auto}
+.glowai-plus-marketing h2{text-align:center;font-size:clamp(30px,4vw,48px);line-height:1.08;margin:12px 0 18px}
+.glowai-plus-marketing h2 span{background:linear-gradient(90deg,#ff5da2,#c56cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.glowai-plus-marketing .eyebrow{text-align:center}
+.glowai-plus-lead{max-width:760px;margin:0 auto;text-align:center;color:var(--muted);font-size:16px;line-height:1.7}
+.glowai-plus-price-card{
+  max-width:820px;margin:34px auto 24px;padding:22px 24px;border:1px solid var(--border);
+  border-radius:22px;background:var(--surface);display:flex;align-items:center;
+  justify-content:space-between;gap:20px;box-shadow:0 18px 50px rgba(0,0,0,.07)
+}
+.glowai-plus-price{font-size:34px;font-weight:900}
+.glowai-plus-price span{font-size:15px;font-weight:700;color:var(--muted);margin-left:4px}
+.glowai-plus-price-note{font-size:13px;color:var(--muted);margin-top:3px}
+.glowai-plus-feature-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:900px;margin:24px auto 40px
+}
+.glowai-plus-feature-grid div{
+  padding:14px;border:1px solid var(--border);border-radius:15px;background:var(--surface);
+  font-size:13px;font-weight:700
+}
+.glowai-plus-comparison-wrap{max-width:1000px;margin:0 auto}
+.glowai-plus-comparison-title{text-align:center;font-size:22px;font-weight:900;margin-bottom:16px}
+.glowai-plus-table{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--surface)}
+.glowai-plus-row{display:grid;grid-template-columns:2fr 1fr 1.3fr 1.2fr 1.5fr;padding:15px 18px;border-top:1px solid var(--border);font-size:13px;align-items:center;gap:10px}
+.glowai-plus-row:first-child{border-top:0}
+.glowai-plus-head{font-weight:800;color:var(--muted);background:var(--surface2)}
+.glowai-plus-highlight{background:rgba(255,105,170,.08)}
+.glowai-plus-disclaimer{text-align:center;max-width:850px;margin:18px auto 0;font-size:11px;color:var(--muted);line-height:1.5}
+@media(max-width:760px){
+  .glowai-plus-price-card{flex-direction:column;align-items:stretch;text-align:center}
+  .glowai-plus-feature-grid{grid-template-columns:repeat(2,1fr)}
+  .glowai-plus-table{overflow-x:auto}
+  .glowai-plus-row{min-width:720px}
+}
+</style>
+
+</head>
+<body>
+<div id="glow-password-reset-toast" style="display:none;position:fixed;top:22px;right:22px;z-index:9999;max-width:360px;padding:15px 18px;border:1px solid #ead6df;border-radius:16px;background:#fff;box-shadow:0 14px 40px #4b27301f;color:#211a1e;font-weight:700">✓ Password updated successfully. Welcome back to GlowAI!</div>
+<div id="app">
+<button id="glow-cart-floating" type="button" style="position:fixed;right:20px;bottom:20px;z-index:35;border:0;border-radius:999px;padding:14px 20px;background:linear-gradient(90deg,#e85b91,#a85de8);color:#fff;font-weight:800;box-shadow:0 8px 24px #0003;cursor:pointer">Cart</button>
+<nav><div class="brand">Glow<span>AI</span></div><div class="links" aria-label="Main navigation"><span onclick="scrollToId('shop')">Shop</span><span onclick="scrollToId('categories')">Beauty</span><span onclick="scrollToId('membership')">GlowAI Plus</span><span onclick="scrollToId('how')">How it works</span></div><div><button class="ghost" type="button" onclick="openGoalQuiz()" style="margin-right:8px">AI Quiz</button><button class="navbtn" type="button" onclick="openGlowAIProtected()" style="margin-right:8px">Glow AI</button><button class="account-btn" type="button" onclick="openAccountModal()"><span class="account-user-icon">♙</span><span>Log in</span></button></div></nav>
+<section class="hero"><div><span class="eyebrow">Your beauty routine, powered by AI</span><h1>Build your <em>best glow-up.</em></h1><p>Shop beauty essentials and get a personalized plan built around your goals, style, routine and budget. GlowAI brings your products and your glow-up coach together in one place.</p><div class="actions"><button class="primary" onclick="openModal()">Build my glow-up →</button><button class="ghost" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop beauty</button></div></div>
+<div class="phone"><div class="phonebar"><span>GlowAI plan</span><span>Today</span></div><div class="score"><div style="font-size:13px;color:var(--muted)">Your personalized routine</div><div class="big">4<span style="font-size:18px"> steps</span></div><div class="meter"><i></i></div><div style="font-size:13px;color:var(--muted)">Built around your goals, budget and lifestyle.</div></div><div class="mini"><div><b>Skin</b><br><small style="color:var(--muted)">Your routine</small></div><div><b>Hair</b><br><small style="color:var(--muted)">Your picks</small></div><div><b>Style</b><br><small style="color:var(--muted)">Your aesthetic</small></div><div><b>Shop</b><br><small style="color:var(--muted)">Recommended</small></div></div></div></section>
+<section class="section" id="why-shop"><h2>Why shop GlowAI?</h2><div class="cards"><div class="card"><h3>Quality-focused materials</h3><p>We look for beauty essentials made with thoughtfully selected materials, chosen for comfort, everyday use and easy care.</p></div><div class="card"><h3>Free shipping on every GlowAI product</h3><p>Enjoy free shipping on every GlowAI product. Your final order details are confirmed securely at Shopify checkout.</p></div><div class="card"><h3>Made for consistent routines</h3><p>Small, consistent habits can help you get more from your beauty routine. Our tools are designed to support your routine—not promise overnight transformations.</p></div></div></section>
+<section class="section" id="shop"><h2>GlowAI shop</h2><p>Seven beauty essentials selected to complement your personalized glow-up plan.</p><div class="cards">
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#ffe2ee,#f0dcff);display:grid;place-items:center;font-size:54px">♡</div><h3>GlowAi Scalp Massage Brush</h3><p>For a relaxing wash-day routine and easy scalp care.</p><div style="margin-top:16px"><a class="primary" href="https://tryglowai.myshopify.com/products/silicone-shampoo-brush-massage-scalp-hair-brush" style="display:inline-block;text-decoration:none">Add to cart</a></div></div>
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#dff5ff,#ffe7f0);display:grid;place-items:center;font-size:54px">❄</div><h3>GlowAi Ice Face Roller</h3><p>A refreshing beauty tool for a simple self-care routine.</p><div style="margin-top:16px"><a class="primary" href="https://tryglowai.myshopify.com/products/ice-face-roller-ice-face-mould-ice-holder-for-face-ice-stick-beauty-facial-icing-roller-skin-care-silicone-face-ice-cube-icing-tool-ice-sphere-for-brighten-remove-lines" style="display:inline-block;text-decoration:none">Add to cart</a></div></div>
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#f5e7ff,#ffe2ee);display:grid;place-items:center;font-size:54px">🎀</div><h3>GlowAI Silk Sleeping Bonnet</h3><p>A soft beauty essential for protecting your hair during your nighttime routine.</p><div style="margin-top:16px"><a class="primary" href="https://tryglowai.myshopify.com/products/beauty-print-satin-silk-bonnet-sleep-night-cap" style="display:inline-block;text-decoration:none">Add to cart</a></div></div>
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#f5e7ff,#ffe2ee);display:grid;place-items:center;font-size:54px">〰</div><h3>GLOW AI Premium Heatless Curling Rod</h3><p>Create soft curls with a heatless styling routine.</p><div style="margin-top:16px"><a class="primary" href="https://tryglowai.myshopify.com/products/spiral-curling-iron-plastic-curling-tube-curling-bar" target="_blank" rel="noopener noreferrer" style="display:inline-block;text-decoration:none">Shop now</a></div></div>
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#e5f8f2,#f8e5f2);display:grid;place-items:center;font-size:54px">✦</div><h3>Hyaluronic Acid Face Serum</h3><p>A hydrating serum for a simple everyday skincare routine.</p><div style="margin-top:16px"><a class="primary" href="https://tryglowai.myshopify.com/products/hyaluronic-acid-face-serum-anti-aging-shrink-pore-whitening-moisturizing-face-cream-dry-skin-care" style="display:inline-block;text-decoration:none">Add to cart</a></div></div>
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#ffe0eb,#fff4f8);display:grid;place-items:center;font-size:54px">💄</div><h3>GlowAI Smooth Lip Balm</h3><p>A nourishing everyday lip-care essential for softer, smoother-looking lips.</p><div style="margin-top:16px"><button type="button" class="primary" data-glow-add="glowai-smooth-lip-balm" style="display:inline-block">Add to cart</button></div></div>
+<div class="card"><div style="height:150px;border-radius:16px;background:linear-gradient(135deg,#f6e5ff,#fff0f7);display:grid;place-items:center;padding:10px"><svg viewBox="0 0 180 130" role="img" aria-label="White collagen sheet face mask" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;max-width:190px"><defs><linearGradient id="maskGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e9e4ef"/></linearGradient></defs><ellipse cx="90" cy="116" rx="42" ry="6" fill="#cbbfd0" opacity=".35"/><path d="M55 22c12-12 58-14 70 0 8 9 8 30 3 49-5 20-18 36-38 38-20-2-33-18-38-38-5-19-5-40 3-49z" fill="url(#maskGlow)" stroke="#c9bfca" stroke-width="2"/><ellipse cx="73" cy="54" rx="8" ry="12" fill="#d8cfda"/><ellipse cx="107" cy="54" rx="8" ry="12" fill="#d8cfda"/><path d="M76 77c8 5 20 5 28 0" fill="none" stroke="#c7bdc9" stroke-width="3" stroke-linecap="round"/><path d="M61 29c-8 10-15 24-18 39M119 29c8 10 15 24 18 39" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".9"/><circle cx="48" cy="24" r="3" fill="#fff"/><path d="M135 25l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#fff"/></svg></div><h3>GlowAI Collagen Face Mask</h3><p>A hydrating self-care mask for a relaxing skincare routine and glow-up reset.</p><div style="margin-top:16px"><button type="button" class="primary" data-glow-add="glowai-collagen-face-mask" style="display:inline-block">Add to cart</button></div></div></div><div id="cartMsg2" style="margin-top:16px;color:var(--accent);font-weight:700"></div></section>
+
+<section id="glowai-plus-comparison" class="glowai-plus-marketing">
+  <div class="glowai-plus-marketing-inner">
+    <div class="eyebrow">WHY GLOWAI PLUS</div>
+    <h2>Why pay more for AI that does everything<br><span>when you can pay $10 for AI built around YOU?</span></h2>
+    <p class="glowai-plus-lead">
+      ChatGPT, Google AI, and Perplexity are powerful general-purpose AI platforms.
+      <strong>GlowAI is different.</strong> It is designed specifically around your glow-up —
+      skincare, haircare, beauty, style, fitness, wellness, and personalized routines.
+    </p>
+
+    <div class="glowai-plus-price-card">
+      <div>
+        <div class="glowai-plus-price">$10<span>/month</span></div>
+        <div class="glowai-plus-price-note">One focused AI membership for your glow-up.</div>
+      </div>
+      <button class="primary" type="button" onclick="openGlowPlusCheckout()">Get GlowAI Plus →</button>
+    </div>
+
+    <div class="glowai-plus-feature-grid">
+      <div>✦ Personalized glow-up plans</div>
+      <div>✦ Unlimited AI guidance</div>
+      <div>✦ Camera & photo analysis</div>
+      <div>✦ Skincare, hair & beauty guidance</div>
+      <div>✦ Fitness & wellness support</div>
+      <div>✦ 10% off GLOW products</div>
+      <div>✦ Private GlowAI community</div>
+      <div>✦ Exclusive glow-up guides</div>
+    </div>
+
+    <div class="glowai-plus-comparison-wrap">
+      <div class="glowai-plus-comparison-title">More specialized. Less expensive.</div>
+      <div class="glowai-plus-table">
+        <div class="glowai-plus-row glowai-plus-head">
+          <div>AI membership</div><div>Price</div><div>Glow-up focus</div><div>Photo / camera</div><div>Beauty plans</div>
+        </div>
+        <div class="glowai-plus-row glowai-plus-highlight">
+          <div><strong>GlowAI Plus</strong></div><div><strong>$10/mo</strong></div><div>★★★★★</div><div>✓</div><div>✓ Specialized</div>
+        </div>
+        <div class="glowai-plus-row">
+          <div>ChatGPT Plus</div><div>$20/mo</div><div>General</div><div>✓</div><div>General</div>
+        </div>
+        <div class="glowai-plus-row">
+          <div>Google AI Pro</div><div>$19.99/mo</div><div>General</div><div>✓</div><div>General</div>
+        </div>
+        <div class="glowai-plus-row">
+          <div>Perplexity Pro</div><div>$20/mo</div><div>General</div><div>✓</div><div>General</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="glowai-plus-disclaimer">
+      Prices shown are standard monthly list prices and can change. Feature availability varies by service.
+      GlowAI Plus is positioned as a specialized beauty, wellness and glow-up membership rather than a general-purpose AI assistant.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="membership"><h2>GlowAI Plus</h2><p><strong>One of the most advanced, cutting-edge AI glow-up coaches.</strong> Experience a more advanced approach to your glow-up, powered by cutting-edge AI guidance, expert-inspired coaching and modern skincare insights informed by evolving beauty techniques and tailored to your goals, preferences and routine.</p><div class="cards"><div class="card"><div class="icon">✦</div><h3>Advanced AI guidance</h3><p>Personalized recommendations shaped around your goals, preferences and routine — designed to make every step feel more intentional.</p><button class="primary" type="button" onclick="openModal()">Open AI Chat →</button></div><div class="card"><div class="icon">♡</div><h3>10% off GlowAI products</h3><p>GlowAI Plus members get <strong>10% off GlowAI products</strong> at checkout when signed in, using the member discount.</p><button class="ghost" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop with Plus →</button></div><div class="card"><div class="icon">✧</div><h3>Exclusive Discord community</h3><p>Join a private Discord community where lifestyle coaches share guidance, encouragement and practical ideas to help you build habits that fit your goals. You’ll also get access to an exclusive glow-up guide filled with helpful tips and inspiration to support your journey.</p><p id="glowai-discord-access" style="font-size:13px;font-weight:700;color:var(--accent)">🔒 Exclusive access for GlowAI Plus members</p></div></div></section>
+<section class="section" id="affiliation"><h2>Affiliation</h2><p>Shop recommended beauty essentials through our affiliate partner.</p><a class="primary" href="https://aminoclub.com?utm_source=affiliate_marketing&amp;code=GLOWAI" target="_blank" rel="noopener noreferrer" style="display:inline-block;text-decoration:none">Visit Amino Club →</a><p><strong>Use GLOWAI for 40% off</strong></p><p class="disclaimer">Academic Research Only.</p></section>
+<section class="section" id="contact" style="max-width:760px;padding-top:28px;padding-bottom:28px"><h2 style="font-size:25px;letter-spacing:-.7px;margin-bottom:6px">Contact us</h2><p style="font-size:13px;margin:0 0 12px">Have a question? We'd love to hear from you.</p><div class="cards" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px"><div class="card" style="padding:13px;border-radius:14px"><div class="icon" style="font-size:18px">✉</div><h3 style="font-size:14px;margin:7px 0 3px">Email</h3><p style="font-size:12px;margin:0"><a href="mailto:tryuglow@gmail.com" style="color:var(--accent);text-decoration:none">tryuglow@gmail.com</a></p></div><div class="card" style="padding:13px;border-radius:14px"><div class="icon" style="font-size:18px">♪</div><h3 style="font-size:14px;margin:7px 0 3px">TikTok</h3><p style="font-size:12px;margin:0"><a href="https://www.tiktok.com/@official_glowai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">@official_glowai</a></p></div><div class="card" style="padding:13px;border-radius:14px"><div class="icon" style="font-size:18px">◎</div><h3 style="font-size:14px;margin:7px 0 3px">Instagram</h3><p style="font-size:12px;margin:0"><a href="https://www.instagram.com/official_glowai/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none">@official_glowai</a></p></div></div></section>
+<section class="cta"><h2>Your glow-up, your rules.</h2><p>Take the free GlowAI quiz, get personalized recommendations, then shop the essentials that fit your routine.</p><button class="primary" onclick="openModal()">Start my free plan</button><p class="disclaimer">GlowAI provides beauty, style and lifestyle guidance. It does not diagnose medical conditions, assess attractiveness as an objective fact, or replace professional medical or dermatological advice.</p></section>
+</div>
+<div class="modal" id="goalQuizModal"><div class="dialog" style="max-width:620px"><button class="close" onclick="closeGoalQuiz()">×</button><div id="goalQuiz"></div></div></div>
+<div class="modal" id="modal"><div class="dialog"><button class="close" onclick="closeModal()">×</button><h2>Your AI Glow-Up Coach ✦</h2><p style="color:var(--muted)">Start a fresh chat or open one of your previous conversations.</p><div class="glow-chat-tools"><b style="font-size:13px">Your chat history</b><div style="display:flex;gap:7px"><button type="button" onclick="startNewGlowChat()">＋ New chat</button><button type="button" class="glow-chat-delete" onclick="deleteCurrentGlowChat()">Delete chat</button></div></div><div id="glow-chat-history" class="glow-chat-history"></div><div id="glow-chat-empty" class="glow-chat-empty">Your previous chats will appear here.</div><div id="result" class="glow-chat-transcript">Start a new chat to talk with GlowAI.</div><div class="glow-image-tools" style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap"><button type="button" class="ghost" id="glow-camera-btn" onclick="glowAIHandleCameraClick()">📷 Camera</button><button type="button" class="ghost" id="glow-file-btn" onclick="document.getElementById('glow-file-input').click()">🖼️ Photo</button><input id="glow-camera-input" type="file" accept="image/*" capture="environment" style="display:none"><input id="glow-file-input" type="file" accept="image/*" style="display:none"><span id="glow-image-status" style="font-size:12px;color:var(--muted)">Free members get 1 camera analysis. GlowAI Plus members get unlimited camera analyses.</span></div><div id="glow-image-preview" style="display:none;margin-top:10px;position:relative"><img id="glow-preview-img" alt="Selected photo" style="display:block;max-width:180px;max-height:180px;border-radius:14px;border:1px solid var(--border);object-fit:cover"><button type="button" onclick="clearGlowImage()" style="position:absolute;top:6px;left:150px;width:28px;height:28px;border-radius:50%;background:#000b;color:#fff;border:0;cursor:pointer">×</button></div><textarea id="goal" placeholder="What would you like help with? e.g. skincare, hair, fitness, makeup or style"></textarea><button class="primary" id="glowai-send" onclick="handlePlanSubmit()">Send message →</button></div></div>
+ <div class="modal" id="accountModal"><div class="dialog" style="max-width:440px"><button class="close" onclick="closeAccountModal()">×</button><div style="text-align:center"><div class="brand" style="font-size:25px">Glow<span>AI</span></div><h2 style="margin:10px 0 5px">Welcome to GlowAI</h2><p style="color:var(--muted);margin:0">Your beauty journey starts here.</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;background:var(--surface2);border-radius:12px;margin:22px 0 18px"><button type="button" id="glow-login-tab" class="primary" style="padding:11px;border-radius:9px" onclick="setAuthMode('login')">Log in</button><button type="button" id="glow-signup-tab" class="ghost" style="padding:11px;border:0" onclick="setAuthMode('signup')">Sign up</button></div><a class="auth-choice auth-shopify" href="https://tryglowai.myshopify.com/account/login">Continue with Shopify</a><div class="auth-divider">OR USE EMAIL</div><form onsubmit="return handleGlowAuthSubmit(event)"><label for="glow-account-email">Email address</label><input class="auth-field" id="glow-account-email" type="email" placeholder="you@example.com" autocomplete="email" required><label for="glow-account-password" id="glow-password-label">Password</label><input class="auth-field" id="glow-account-password" type="password" placeholder="Enter your password" autocomplete="current-password" minlength="8" required><div id="glow-auth-actions" style="display:flex;align-items:center;gap:12px;margin-top:2px"><button class="primary auth-disabled" id="glow-auth-submit" type="submit" disabled style="flex:1">Log in</button><div id="glow-forgot-wrap"><button type="button" class="ghost" style="border:0;padding:2px 0;color:var(--accent);font-size:12px;white-space:nowrap" onclick="openForgotPassword()">Forgot password?</button></div></div></form><p class="auth-note" style="text-align:center;margin-top:13px">Create an account or log in securely with your email and password.</p><p class="auth-note" id="glow-auth-message" role="status" style="text-align:center"></p></div></div>
+<div class="modal" id="resetPasswordModal"><div class="dialog" style="max-width:440px"><button class="close" onclick="closeResetPassword()">×</button><div style="text-align:center"><div class="brand" style="font-size:25px">Glow<span>AI</span></div><h2 style="margin:10px 0 5px">Reset your password</h2><p style="color:var(--muted);margin:0;line-height:1.5">Choose a new password for your GlowAI account.</p></div><form onsubmit="return handleResetPasswordSubmit(event)" style="margin-top:22px"><label for="glow-new-password">New password</label><input class="auth-field" id="glow-new-password" type="password" placeholder="Create a new password" autocomplete="new-password" minlength="8" required><label for="glow-confirm-password">Confirm new password</label><input class="auth-field" id="glow-confirm-password" type="password" placeholder="Re-enter your new password" autocomplete="new-password" minlength="8" required><button class="primary" id="glow-reset-submit" type="submit" style="width:100%">Update password</button></form><p class="auth-note" id="glow-reset-message" role="status" style="text-align:center;margin-top:13px"></p></div></div><div class="modal" id="paywallModal"><div class="dialog" style="max-width:460px;text-align:center"><button class="close" onclick="closePaywall()">×</button><div style="font-size:38px;margin:12px 0">✦</div><span class="eyebrow">GlowAI Plus</span><h2 style="margin:16px 0 8px">Your next glow-up starts here.</h2><p style="color:var(--muted);line-height:1.6">You’ve used all 3 free GlowAI plans. Upgrade to the one GlowAI Plus membership for unlimited personalized guidance and exclusive member benefits.</p><div style="text-align:left;margin:18px 0 8px;padding:16px 18px;border-radius:14px;background:var(--surface2);border:1px solid var(--border)"><div style="font-weight:800;margin-bottom:10px">GlowAI Plus includes:</div><div style="display:grid;gap:9px;color:var(--muted);line-height:1.45"><div>✦ Unlimited personalized AI plans for skincare, haircare, fitness, wellness and style</div><div>✦ Unlimited GlowAI camera analyses</div><div>✦ 10% off GlowAI products</div><div>✦ Private GlowAI Discord community</div><div>✦ Exclusive glow-up guides, tips and inspiration</div><div>✦ Wellness and fitness support to help you build healthier, sustainable routines</div></div></div><div style="font-size:36px;font-weight:850;margin:18px 0">$10<span style="font-size:15px;font-weight:500;color:var(--muted)"> / month</span></div><button class="primary" style="width:100%" onclick="startGlowAIPayment()">Unlock unlimited plans →</button><button class="ghost" style="width:100%;margin-top:10px" onclick="closePaywall()">Maybe later</button><p class="disclaimer" style="margin:14px auto 0">Review your GlowAI Plus membership first, then continue directly to secure Shopify checkout.</p></div></div>
+<div class="modal" id="glowPlusCheckoutModal" aria-hidden="true">
+  <div class="dialog glow-plus-checkout-dialog" style="max-width:480px">
+    <button class="close" type="button" onclick="closeGlowPlusCheckout()">×</button>
+    <div style="text-align:center">
+      <div class="brand" style="font-size:25px">Glow<span>AI</span></div>
+      <div class="eyebrow" style="margin-top:12px">GlowAI Plus</div>
+      <h2 style="margin:14px 0 6px">Get AI Plus</h2>
+      <p style="color:var(--muted);line-height:1.55;margin:0">
+        Unlock the full GlowAI experience with unlimited personalized guidance.
+      </p>
+    </div>
+
+    <div class="glow-plus-checkout-card">
+      <div class="glow-plus-checkout-title">
+        <span>GlowAI Plus</span>
+        <span id="glow-plus-checkout-price">$10 / month</span>
+      </div>
+      <div class="glow-plus-checkout-divider"></div>
+      <div class="glow-plus-checkout-benefits">
+        <div>✦ Unlimited personalized AI plans</div>
+        <div>✦ Unlimited camera & photo analyses</div>
+        <div>✦ 10% off GlowAI products</div>
+        <div>✦ Private GlowAI Discord community</div>
+        <div>✦ Exclusive glow-up guides and support</div>
+      </div>
+    </div>
+
+    <div id="glow-plus-plan-status" class="glow-plus-plan-status">
+      GlowAI Plus membership
+    </div>
+
+    <button id="glow-plus-checkout-button" class="primary" type="button"
+            style="width:100%;margin-top:14px" onclick="continueToGlowPlusCheckout()">
+      Continue to checkout →
+    </button>
+    <button class="ghost" type="button" style="width:100%;margin-top:10px"
+            onclick="closeGlowPlusCheckout()">Maybe later</button>
+    <p class="disclaimer" style="text-align:center;margin:13px 0 0">
+      Secure checkout powered by Shopify. GlowAI Plus is kept separate from your regular GLOW product cart.
+    </p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// Replace the three product placeholders with illustrated product artwork.
+const GLOW_RATING_KEY='glowaiProductRatingsV2';
+const GLOW_PURCHASE_KEY='glowaiPurchasedProductsV1';
+const GLOW_PRODUCT_DEFAULTS={};
+function glowRatingsRead(){try{return JSON.parse(localStorage.getItem(GLOW_RATING_KEY)||'{}')}catch(e){return {}}}
+function glowRatingsWrite(data){try{localStorage.setItem(GLOW_RATING_KEY,JSON.stringify(data))}catch(e){}}
+function glowPurchasedRead(){try{return JSON.parse(localStorage.getItem(GLOW_PURCHASE_KEY)||'{}')}catch(e){return {}}}
+function glowProductRatingMarkup(product){const ratings=glowRatingsRead(),entry=ratings[product]||{sum:0,count:0};const average=entry.count?entry.sum/entry.count:5;const stars=[1,2,3,4,5].map(n=>'<button type="button" class="glow-product-star '+(n<=Math.round(average)?'active':'')+'" data-rating="'+n+'" aria-label="Rate '+n+' out of 5">★</button>').join('');const purchased=glowPurchasedRead()[product]===true;const reviewText=entry.count?(average.toFixed(1)+'/5 · '+entry.count+' review'+(entry.count===1?'':'s')):'';const boughtCount=2+(entry.count||0);return '<div class="glow-product-rating" data-rating-product="'+product+'"><span class="glow-product-stars">'+stars+'</span><span class="glow-product-rating-text">'+(reviewText?reviewText+' · ':'')+boughtCount+' bought</span></div>'+(purchased?'<div class="glow-product-rating-locked">Verified purchase — you can rate this product.</div>':'<div class="glow-product-rating-locked">Purchase this product to leave a verified rating.</div>')}
+function initGlowProductRatings(){document.querySelectorAll('#shop .card h3,#bestsellers .card h3').forEach(title=>{const card=title.closest('.card');if(!card||card.querySelector('.glow-product-rating'))return;const product=title.textContent.trim();const actions=card.querySelector('[style*="margin-top:16px"]');if(actions)actions.insertAdjacentHTML('beforebegin',glowProductRatingMarkup(product));else title.insertAdjacentHTML('afterend',glowProductRatingMarkup(product))});document.querySelectorAll('.glow-product-rating').forEach(row=>row.addEventListener('click',event=>{const star=event.target.closest('[data-rating]');if(!star)return;const product=row.dataset.ratingProduct;if(glowPurchasedRead()[product]!==true){alert('You can rate this product after purchasing it.');return}const ratings=glowRatingsRead(),entry=ratings[product]||{sum:0,count:0};entry.sum+=Number(star.dataset.rating);entry.count+=1;ratings[product]=entry;glowRatingsWrite(ratings);document.querySelectorAll('.glow-product-rating').forEach(el=>{if(el.dataset.ratingProduct===product)el.outerHTML=glowProductRatingMarkup(product)})}))}
+setTimeout(initGlowProductRatings,0);
+function applyGlowAIProductArt(){
+const art={
+'glowai scalp massage brush':`<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of a scalp massage brush" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="brushBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7a9c9"/><stop offset="1" stop-color="#c879ad"/></linearGradient></defs><ellipse cx="90" cy="112" rx="54" ry="8" fill="#d9b9cb" opacity=".45"/><path d="M50 54Q48 25 90 20Q132 25 130 54L121 86Q117 101 90 102Q63 101 59 86Z" fill="url(#brushBody)" stroke="#a75e91" stroke-width="2.5"/><path d="M61 48Q90 32 119 48" fill="none" stroke="#ffe9f3" stroke-width="5" stroke-linecap="round"/><g stroke="#a75e91" stroke-width="2.5" stroke-linecap="round"><path d="M66 57l-4 19M78 54l-2 23M90 53v25M102 54l2 23M114 57l4 19"/><path d="M70 82l-2 8M82 81l-1 10M94 81l1 10M106 81l2 9"/></g><path d="M70 37Q90 27 110 37" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/></svg>`,
+'glowai ice face roller':`<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of an ice face roller" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="rollerHead" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c9f2ff"/><stop offset="1" stop-color="#77c6e8"/></linearGradient></defs><ellipse cx="91" cy="112" rx="45" ry="7" fill="#b9dbe8" opacity=".45"/><g transform="rotate(-28 90 66)"><rect x="82" y="57" width="16" height="49" rx="8" fill="#e8a6c5" stroke="#b86f9b" stroke-width="2"/><rect x="52" y="20" width="76" height="43" rx="21.5" fill="url(#rollerHead)" stroke="#69b6d7" stroke-width="2.5"/><path d="M67 30Q90 19 113 30" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/><path d="M90 65v12" stroke="#b86f9b" stroke-width="3"/></g><g fill="#fff" opacity=".9"><path d="M39 31l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><path d="M143 75l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></g></svg>`,
+'glowai silk sleeping bonnet':`<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of a silk sleeping bonnet" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bonnet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9c1dc"/><stop offset="1" stop-color="#bd83ca"/></linearGradient></defs><ellipse cx="90" cy="110" rx="48" ry="7" fill="#d9b9cb" opacity=".45"/><path d="M42 75Q37 29 90 20Q143 29 138 75Q133 101 90 103Q47 101 42 75Z" fill="url(#bonnet)" stroke="#a66b9d" stroke-width="2.5"/><path d="M42 72Q90 91 138 72Q133 102 90 105Q47 102 42 72Z" fill="#eaa8ca" stroke="#a66b9d" stroke-width="2.5"/><path d="M54 73Q90 88 126 73" fill="none" stroke="#fff0f7" stroke-width="3" stroke-linecap="round"/><path d="M69 38Q90 27 111 38M62 51Q90 40 118 51" fill="none" stroke="#fff" stroke-width="2.5" opacity=".7" stroke-linecap="round"/><g fill="#fff2f8"><path d="M90 51l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z"/></g></svg>`,
+'glow ai premium heatless curling rod':`<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of a heatless curling rod" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="curlRod" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8c4df"/><stop offset="1" stop-color="#b887d2"/></linearGradient></defs><ellipse cx="90" cy="109" rx="58" ry="7" fill="#d9b9cb" opacity=".4"/><path d="M35 72C48 30 62 30 75 72S102 114 115 72S142 30 155 72" fill="none" stroke="url(#curlRod)" stroke-width="13" stroke-linecap="round"/><path d="M35 72C48 30 62 30 75 72S102 114 115 72S142 30 155 72" fill="none" stroke="#fff0f8" stroke-width="3" stroke-linecap="round" opacity=".8"/><path d="M29 64l-9 8 9 8M161 64l9 8-9 8" fill="none" stroke="#a66b9d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><g fill="#fff"><path d="M88 20l3 7 7 2-7 3-3 7-3-7-7-3 7-2z"/></g></svg>`,
+'hyaluronic acid face serum':`<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of a hyaluronic acid face serum bottle" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="serumGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7fbf8"/><stop offset="1" stop-color="#a9d9d7"/></linearGradient></defs><ellipse cx="90" cy="111" rx="35" ry="7" fill="#b7d8d5" opacity=".45"/><rect x="81" y="16" width="18" height="17" rx="4" fill="#f4d6e8" stroke="#bd91b2" stroke-width="2"/><path d="M86 7h8v12h-8z" fill="#fff" stroke="#bd91b2" stroke-width="2"/><rect x="57" y="31" width="66" height="73" rx="13" fill="url(#serumGlass)" stroke="#75aaa8" stroke-width="2.5"/><path d="M67 42v48" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".8"/><rect x="66" y="58" width="48" height="28" rx="6" fill="#fff9fc" opacity=".9"/><text x="90" y="70" text-anchor="middle" font-size="7" font-weight="700" fill="#6c9e9b">HYALURONIC</text><text x="90" y="79" text-anchor="middle" font-size="7" font-weight="700" fill="#6c9e9b">SERUM</text><path d="M137 32l3 7 7 2-7 3-3 7-3-7-7-3 7-2z" fill="#fff"/></svg>`
+};
+document.querySelectorAll('.card h3').forEach(title=>{const key=title.textContent.trim().toLowerCase();const svg=art[key];if(!svg)return;const card=title.closest('.card');const visual=card?.firstElementChild;if(!visual)return;visual.innerHTML=svg;visual.style.cssText='height:150px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#f0e6ff);display:grid;place-items:center;padding:10px';visual.querySelector('svg').style.cssText='width:100%;height:100%;max-width:190px'});
+}
+applyGlowAIProductArt();
+document.querySelectorAll('.card h3').forEach(title=>{if(title.textContent.trim().toLowerCase()!=='glowai collagen face mask')return;const visual=title.closest('.card')?.firstElementChild;if(!visual)return;visual.innerHTML='<img src="data:image/webp;base64,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" alt="White collagen face mask" style="width:100%;height:100%;object-fit:contain;max-width:190px">';visual.style.cssText='height:150px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#f0e6ff);display:grid;place-items:center;padding:10px'});
+document.querySelectorAll('.card h3').forEach(title=>{const name=title.textContent.trim().toLowerCase();if(name!=='glowai smooth lip balm')return;const card=title.closest('.card');const component=card?.querySelector('[id^="product-component-"]');if(component)component.remove()});
+document.querySelectorAll('.card h3').forEach(title=>{if(title.textContent.trim().toLowerCase()!=='glowai smooth lip balm')return;const visual=title.closest('.card')?.firstElementChild;if(!visual)return;visual.innerHTML='<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of a lip balm" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lipBalmTube" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd2e4"/><stop offset="1" stop-color="#e78bb5"/></linearGradient></defs><ellipse cx="90" cy="111" rx="34" ry="7" fill="#d9b9cb" opacity=".45"/><g transform="rotate(-10 90 66)"><rect x="67" y="32" width="46" height="68" rx="10" fill="url(#lipBalmTube)" stroke="#b86f9b" stroke-width="2.5"/><rect x="70" y="78" width="40" height="19" rx="5" fill="#fff4f8" opacity=".9"/><rect x="71" y="20" width="38" height="18" rx="7" fill="#f6e4ec" stroke="#b86f9b" stroke-width="2.5"/><path d="M79 20v-8h22v8" fill="#f4bfd7" stroke="#b86f9b" stroke-width="2.5"/><path d="M77 48Q90 41 103 48" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/><text x="90" y="91" text-anchor="middle" font-size="7" font-weight="800" fill="#a45f89">LIP BALM</text></g><path d="M132 35l3 7 7 2-7 3-3 7-3-7-7-3 7-2z" fill="#fff"/></svg>';visual.style.cssText='height:150px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#f0e6ff);display:grid;place-items:center;padding:10px';visual.querySelector('svg').style.cssText='width:100%;height:100%;max-width:190px'});
+function scrollToId(id){const target=document.getElementById(id);if(target)target.scrollIntoView({behavior:'smooth',block:'start'})}
+document.querySelectorAll('.card h3').forEach(title=>{if(title.textContent.trim().toLowerCase()!=='glowai collagen face mask')return;const visual=title.closest('.card')?.firstElementChild;if(!visual)return;const img=visual.querySelector('img');if(!img)return;img.src='data:image/webp;base64,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';img.alt='White collagen face mask';img.style.cssText='width:100%;height:100%;object-fit:contain;max-width:190px'});
+document.querySelectorAll('.card h3').forEach(title=>{if(title.textContent.trim().toLowerCase()!=='glowai collagen face mask')return;const visual=title.closest('.card')?.firstElementChild;if(!visual)return;visual.innerHTML='<svg viewBox="0 0 180 130" role="img" aria-label="Illustration of a collagen face mask" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="maskFaceFinal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e8dfea"/></linearGradient></defs><ellipse cx="90" cy="114" rx="44" ry="7" fill="#cbbfd0" opacity=".4"/><path d="M55 22c12-12 58-14 70 0 8 9 8 31 3 50-5 20-18 35-38 37-20-2-33-17-38-37-5-19-5-41 3-50z" fill="url(#maskFaceFinal)" stroke="#c6b9c6" stroke-width="2.5"/><ellipse cx="73" cy="54" rx="8" ry="12" fill="#d6ccd9"/><ellipse cx="107" cy="54" rx="8" ry="12" fill="#d6ccd9"/><path d="M76 77c8 5 20 5 28 0" fill="none" stroke="#c2b5c3" stroke-width="3" stroke-linecap="round"/><path d="M61 29c-8 10-15 24-18 39M119 29c8 10 15 24 18 39" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".9"/><path d="M137 22l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#fff"/></svg>';visual.style.cssText='height:150px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#f0e6ff);display:grid;place-items:center;padding:10px';visual.querySelector('svg').style.cssText='width:100%;height:100%;max-width:190px'});
+document.querySelectorAll('[id^="product-component-"], .shopify-buy__product, .shopify-buy__cart-wrapper, .shopify-buy__cart-toggle').forEach(el=>el.remove());
+const glowShopifyCleanup=new MutationObserver(()=>document.querySelectorAll('[id^="product-component-"], .shopify-buy__product, .shopify-buy__cart-wrapper, .shopify-buy__cart-toggle').forEach(el=>el.remove()));glowShopifyCleanup.observe(document.body,{childList:true,subtree:true});
+const glowGoalQuizQuestions=[
+{q:'What are you trying to focus on?',o:['Hair care','Skincare','Fitness & healthy habits','Makeup & beauty','Style & fashion','Lips & self-care'],scale:false},
+{q:'How motivated are you to improve your routine?',o:['1 — Just exploring','2 — A little motivated','3 — Ready to start','4 — Very motivated','5 — Fully committed'],scale:true},
+{q:'How consistent are you with your current routine?',o:['1 — I have no routine','2 — Rarely consistent','3 — Sometimes consistent','4 — Usually consistent','5 — Very consistent'],scale:true},
+{q:'How important is saving time for you?',o:['1 — Not important','2 — Slightly important','3 — Somewhat important','4 — Very important','5 — Extremely important'],scale:true},
+{q:'How important is staying within a budget?',o:['1 — Not a concern','2 — Slightly important','3 — Moderately important','4 — Very important','5 — Extremely important'],scale:true},
+{q:'How much change are you hoping to make?',o:['1 — Small tweaks','2 — A few improvements','3 — A noticeable refresh','4 — A major glow-up','5 — A complete routine reset'],scale:true},
+{q:'How much guidance do you want from GlowAI?',o:['1 — Just a few tips','2 — Occasional suggestions','3 — A clear routine','4 — Detailed step-by-step help','5 — Full coaching and guidance'],scale:true},
+{q:'How important is maintaining your results long-term?',o:['1 — Not a priority','2 — Slightly important','3 — Somewhat important','4 — Very important','5 — Extremely important'],scale:true}
+];
+let glowQuizStep=0,glowQuizAnswers=[];
+function renderGoalQuiz(){const box=document.getElementById('goalQuiz');if(!box)return;const item=glowGoalQuizQuestions[glowQuizStep];const progress=Math.round((glowQuizStep/glowGoalQuizQuestions.length)*100);box.innerHTML='<div class="eyebrow">GlowAI Goal Quiz</div><h2 style="margin:15px 0 6px">Let’s build your glow-up plan.</h2><p style="color:var(--muted);margin:0 0 18px">Question '+(glowQuizStep+1)+' of '+glowGoalQuizQuestions.length+'</p><div class="meter"><i style="width:'+progress+'%"></i></div><h3 style="margin:20px 0 12px">'+item.q+'</h3><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">'+item.o.map((x,i)=>'<button type="button" class="ghost" style="text-align:left;padding:14px" onclick="answerGoalQuiz('+i+')">'+x+'</button>').join('')+'</div><p style="font-size:11px;color:var(--muted);margin:18px 0 0">'+(item.scale?'Rate yourself from 1 to 5.':'Choose your main goal.')+'</p>'}
+function answerGoalQuiz(index){glowQuizAnswers[glowQuizStep]=glowGoalQuizQuestions[glowQuizStep].o[index];if(glowQuizStep<glowGoalQuizQuestions.length-1){glowQuizStep++;renderGoalQuiz();}else{showGoalQuizResult()}}
+function showGoalQuizResult(){const box=document.getElementById('goalQuiz');const focus=glowQuizAnswers[0]||'your goals';const ratings=glowQuizAnswers.slice(1).map(x=>Number((x||'').charAt(0))).filter(Number.isFinite);const score=ratings.reduce((a,b)=>a+b,0);const average=ratings.length?(score/ratings.length).toFixed(1):'3.0';let level=average>=4?'High readiness':average>=3?'Balanced starting point':'Easy-start routine';let advice='Start with a simple routine focused on '+focus.toLowerCase()+'. Your '+level.toLowerCase()+' suggests that GlowAI should keep the first steps realistic and build from there. ';if(/fitness|healthy/i.test(focus))advice+='For fitness goals, focus on sustainable activity, balanced nutrition and gradual progress rather than extreme changes.';else if(/skin/i.test(focus))advice+='For skincare, keep the basics consistent and use daytime sunscreen when appropriate; introduce new products gradually.';else if(/hair/i.test(focus))advice+='For hair care, minimize unnecessary heat and rough handling and build a routine around your hair type.';else advice+='Add new steps gradually so your routine stays easy to maintain.';box.innerHTML='<div style="text-align:center"><div style="font-size:42px">✦</div><span class="eyebrow">Your GlowAI starting plan</span><h2 style="margin:15px 0 8px">Your glow-up score: '+average+'/5</h2><p style="color:var(--muted);line-height:1.6">'+advice+'</p><div class="card" style="text-align:left;margin:18px 0"><h3 style="margin-top:0">Your quiz results</h3><p style="margin:0 0 10px"><b>Main focus:</b> '+focus+'</p><p style="margin:0 0 10px"><b>Readiness score:</b> '+average+'/5</p><p style="margin:0"><b>Recommendation:</b> '+level+'</p></div><button class="primary" style="width:100%" onclick="proceedFromGoalQuiz()">Proceed to GlowAI →</button></div>'}
+function openGoalQuiz(){glowQuizStep=0;glowQuizAnswers=[];document.getElementById('goalQuizModal')?.classList.add('open');renderGoalQuiz()}
+function closeGoalQuiz(){document.getElementById('goalQuizModal')?.classList.remove('open')}
+function proceedFromGoalQuiz(){closeGoalQuiz();openModal();const focus=glowQuizAnswers[0]||'general glow-up';document.getElementById('goal').value='My main focus is '+focus+'. Please build my personalized plan using my quiz answers.'}
+function glowQuizSeenKey(){try{const user=window.glowSignedInUser;return user&&user.email?'glowaiGoalQuizSeenV2:'+user.email.toLowerCase():'glowaiGoalQuizSeenV2:guest'}catch(e){return 'glowaiGoalQuizSeenV2:guest'}}
+function markGlowQuizSeen(){try{localStorage.setItem(glowQuizSeenKey(),'1')}catch(e){}}
+function hasGlowQuizBeenSeen(){try{return localStorage.getItem(glowQuizSeenKey())==='1'}catch(e){return false}}
+const _openGoalQuiz=openGoalQuiz;
+openGoalQuiz=function(){markGlowQuizSeen();_openGoalQuiz()};
+setTimeout(()=>{if(!hasGlowQuizBeenSeen()&&!document.querySelector('.modal.open'))openGoalQuiz()},700);
+const GLOW_CHAT_KEY='glowaiChatHistoryV1';let glowCurrentChatId=null;let glowCurrentMessages=[];function readGlowChats(){try{return JSON.parse(localStorage.getItem(GLOW_CHAT_KEY)||'[]')}catch(e){return []}}function writeGlowChats(chats){try{localStorage.setItem(GLOW_CHAT_KEY,JSON.stringify(chats.slice(0,40)))}catch(e){}}function renderGlowChatHistory(){const chats=readGlowChats(),area=document.getElementById('glow-chat-history'),empty=document.getElementById('glow-chat-empty');if(!area)return;area.innerHTML='';chats.forEach(chat=>{const button=document.createElement('button');button.type='button';button.textContent=chat.title||'New chat';button.classList.toggle('active',chat.id===glowCurrentChatId);button.addEventListener('click',()=>openGlowChat(chat.id));area.appendChild(button)});if(empty)empty.style.display=chats.length?'none':'block'}function formatGlowReply(text){return String(text||'').replace(/#{1,6}\s*/g,'').replace(/\*\*(.*?)\*\*/g,'$1').replace(/^\s*[-*]\s+/gm,'• ')}function displayGlowMessages(){const result=document.getElementById('result');if(!result)return;result.innerHTML='';if(!glowCurrentMessages.length){result.textContent='This is a new chat. What would you like help with?';return}glowCurrentMessages.forEach(item=>{const message=document.createElement('div');message.className='glow-chat-message';const label=document.createElement('strong');label.className='glow-chat-message-label';label.textContent=item.role==='user'?'YOU':'GLOW';message.appendChild(label);const body=document.createElement('div');if(item.role==='user'&&item.image){const image=document.createElement('img');image.src=item.image;image.alt='Uploaded photo';image.style.cssText='display:block;max-width:220px;max-height:220px;border-radius:14px;margin:8px 0;object-fit:cover';message.appendChild(image)}body.textContent=item.role==='assistant'?formatGlowReply(item.content):item.content;message.appendChild(body);result.appendChild(message)});result.scrollTop=result.scrollHeight}function startNewGlowChat(){glowCurrentChatId='chat-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);glowCurrentMessages=[];clearGlowImage();displayGlowMessages();renderGlowChatHistory();const field=document.getElementById('goal');if(field){field.value='';field.focus()}}function openGlowChat(id){const chat=readGlowChats().find(item=>item.id===id);if(!chat)return;glowCurrentChatId=chat.id;glowCurrentMessages=chat.messages||[];displayGlowMessages();renderGlowChatHistory();document.getElementById('goal').value=''}function deleteCurrentGlowChat(){if(!glowCurrentChatId)return;const chats=readGlowChats().filter(chat=>chat.id!==glowCurrentChatId);writeGlowChats(chats);glowCurrentChatId=null;glowCurrentMessages=[];displayGlowMessages();renderGlowChatHistory()}function saveGlowChat(){if(!glowCurrentMessages.length)return;const chats=readGlowChats(),first=glowCurrentMessages.find(item=>item.role==='user'),existing=chats.findIndex(item=>item.id===glowCurrentChatId),chat={id:glowCurrentChatId,title:(first?.content||'New chat').slice(0,42),updatedAt:Date.now(),messages:glowCurrentMessages.map(item=>({...item,image:null}))};if(existing>=0)chats.splice(existing,1);chats.unshift(chat);writeGlowChats(chats);renderGlowChatHistory()}function syncGlowAICartVisibility(){
+  const modal=document.getElementById('modal');
+  const isChatOpen=!!modal?.classList.contains('open');
+  document.body.classList.toggle('glow-ai-chat-open',isChatOpen);
+}
+function openModal(){const modal=document.getElementById('modal');if(!modal)return;modal.classList.add('open');syncGlowAICartVisibility();startNewGlowChat();if(document.getElementById('goal'))setTimeout(()=>document.getElementById('goal').focus(),50)}
+function closeModal(){const modal=document.getElementById('modal');if(modal)modal.classList.remove('open');syncGlowAICartVisibility()}
+function closePaywall(){document.getElementById('paywallModal').classList.remove('open')}
+let glowAuthMode='login';function setAuthMode(mode){glowAuthMode=mode==='signup'?'signup':'login';const login=document.getElementById('glow-login-tab'),signup=document.getElementById('glow-signup-tab'),password=document.getElementById('glow-account-password'),label=document.getElementById('glow-password-label'),submit=document.getElementById('glow-auth-submit'),message=document.getElementById('glow-auth-message');if(login){login.className=glowAuthMode==='login'?'primary':'ghost';login.style.cssText='padding:11px;border-radius:9px;border:0'}if(signup){signup.className=glowAuthMode==='signup'?'primary':'ghost';signup.style.cssText='padding:11px;border-radius:9px;border:0'}if(password){password.placeholder=glowAuthMode==='signup'?'Create a password (8+ characters)':'Enter your password';password.autocomplete=glowAuthMode==='signup'?'new-password':'current-password'}if(label)label.textContent=glowAuthMode==='signup'?'Create a password':'Password';if(submit)submit.textContent=glowAuthMode==='signup'?'Sign up with email':'Log in';if(message)message.textContent='';const forgot=document.getElementById('glow-forgot-wrap');if(forgot)forgot.style.display=glowAuthMode==='login'?'block':'none';const actions=document.getElementById('glow-auth-actions');if(actions)actions.style.display=glowAuthMode==='login'?'flex':'block'}function openAccountModal(){document.getElementById('accountModal')?.classList.add('open');setAuthMode('login')}function closeAccountModal(){document.getElementById('accountModal')?.classList.remove('open')}function handleGlowAuthSubmit(event){event.preventDefault();const message=document.getElementById('glow-auth-message');if(message)message.textContent=glowAuthMode==='signup'?'Email sign-up is not active yet. Connect secure authentication to create accounts.':'Email login is not active yet. Connect secure authentication to sign in.';return false}document.getElementById('accountModal')?.addEventListener('click',event=>{if(event.target.id==='accountModal')closeAccountModal()})
+let glowSelectedImage = null;
+function handleGlowImageFile(file){
+  if(!file)return;
+  if(!file.type.startsWith('image/')){alert('Please choose an image file.');return;}
+  if(file.size>10*1024*1024){alert('That image is too large. Please choose an image under 10 MB.');return;}
+  const reader=new FileReader();
+  reader.onload=()=>{glowSelectedImage=reader.result;const img=document.getElementById('glow-preview-img'),preview=document.getElementById('glow-image-preview'),status=document.getElementById('glow-image-status');if(img)img.src=glowSelectedImage;if(preview)preview.style.display='block';if(status)status.textContent='Photo ready for GlowAI ✓';};
+  reader.readAsDataURL(file);
+}
+function clearGlowImage(){glowSelectedImage=null;const preview=document.getElementById('glow-image-preview'),status=document.getElementById('glow-image-status'),cam=document.getElementById('glow-camera-input'),file=document.getElementById('glow-file-input');if(preview)preview.style.display='none';if(status)status.textContent='Upload a photo for GlowAI to analyze.';if(cam)cam.value='';if(file)file.value='';}
+async function handlePlanSubmit(){const field=document.getElementById('goal'),result=document.getElementById('result'),button=document.getElementById('glowai-send'),message=field.value.trim();if(!message&&!glowSelectedImage){result.textContent='Tell GlowAI what you would like help with or upload a photo first.';return}if(!glowCurrentChatId)startNewGlowChat();const userMessage={role:'user',content:message||'Please analyze this image.',image:glowSelectedImage||null};glowCurrentMessages.push(userMessage);displayGlowMessages();saveGlowChat();field.value='';const imageToSend=glowSelectedImage;clearGlowImage();button.disabled=true;button.textContent='GlowAI is thinking…';try{const response=await fetch('https://glow-bot.glowai.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:glowCurrentMessages.filter(item=>item.role==='user'||item.role==='assistant').map(item=>(item.role==='user'?'User':'GlowAI')+': '+formatGlowReply(item.content)).join('\n\n'),image:imageToSend})});const data=await response.json();if(!response.ok)throw new Error(data.error||'The AI service returned HTTP '+response.status+'.');if(!data.reply)throw new Error('The AI service returned an empty reply.');glowCurrentMessages.push({role:'assistant',content:data.reply});displayGlowMessages();saveGlowChat();}catch(error){glowCurrentMessages.push({role:'assistant',content:'I could not reach your AI coach: '+error.message});displayGlowMessages();saveGlowChat()}finally{button.disabled=false;button.textContent='Send message →'}}
+
+function showAnalyze(title){const goal=document.getElementById('goal');if(goal){goal.value=title==='Face analysis'?'makeup and face framing':title==='Skin routine'?'skincare routine':'hair and personal style'}openModal()}
+function generatePlan(){const g=document.getElementById('goal').value.trim(),r=document.getElementById('result'),q=g.toLowerCase();if(!g){r.innerHTML='<b>Tell us your goal first.</b><br><small>Try: acne, weight loss, hair care, or a general glow-up.</small>';return}const safe=g.replace(/[<>]/g,'');if(/acne|breakout|pimple|pimples/.test(q)){r.innerHTML='<b>Your GlowAI acne-focused plan</b><br><br>1. <b>Morning:</b> Gently cleanse your face and avoid scrubbing or picking.<br>2. <b>Cool-down:</b> Use the Ice Face Roller briefly over clean skin for a soothing, temporary cooling effect. Do not press hard or use it on broken skin.<br>3. <b>Hair care:</b> Keep hair products away from your face and use the Silk Sleeping Bonnet at night to help keep hair contained and reduce friction.<br>4. <b>Consistency:</b> Keep your routine simple and give products time to work rather than constantly switching products.<br>5. <b>When to get help:</b> If acne is painful, severe, scarring, or not improving, see a dermatologist.<br><br><small>GlowAI products can support a routine, but the Ice Face Roller and bonnet do not treat or cure acne. For persistent acne, professional medical advice is best.</small>'}else if(/lose weight|weight loss|lose fat|fat loss|workout|exercise|get fit/.test(q)){r.innerHTML='<b>Your GlowAI weight-loss workout plan</b><br><br><b>3 days per week — beginner routine</b><br><br>1. <b>Warm-up:</b> 5–10 minutes of brisk walking and gentle mobility.<br>2. <b>Squats:</b> 3 sets × 10–12 reps.<br>3. <b>Incline push-ups:</b> 3 × 8–12 reps.<br>4. <b>Glute bridges:</b> 3 × 12–15 reps.<br>5. <b>Backpack or resistance rows:</b> 3 × 10–12 reps.<br>6. <b>Walking:</b> 20–30 minutes at a comfortable-to-brisk pace.<br>7. <b>Cool down:</b> 5 minutes of easy walking and stretching.<br><br>On other days, aim for light activity such as walking. Increase reps, resistance, or walking time gradually as it gets easier.<br><br><small>Weight change depends on nutrition, activity, sleep and individual factors. Stop if you feel sharp pain, dizziness, or feel unwell.</small>'}else if(/hair|curl|bonnet|scalp/.test(q)){r.innerHTML='<b>Your GlowAI hair-care plan</b><br><br>1. Wash your hair according to your hair type and needs.<br>2. Use the Scalp Massage Brush gently while shampooing; avoid aggressive pressure.<br>3. Rinse thoroughly and condition the lengths of your hair as appropriate.<br>4. Let hair dry appropriately and avoid excessive heat when possible.<br>5. At night, use your GlowAI Silk Sleeping Bonnet to help protect hair and reduce friction.<br><br><small>Adjust the routine to your hair type and stop if your scalp becomes irritated.</small>'}else{r.innerHTML='<b>Your personalized GlowAI plan</b><br><br>✦ Goal: '+safe+'<br><br>1. Pick your top priority and make it specific.<br>2. Start with a simple routine you can realistically maintain.<br>3. Use the GlowAI products that match your goal.<br>4. Track your progress weekly and adjust what is working.<br><br><b>Product match:</b> Ice Face Roller for a cooling self-care step, Silk Sleeping Bonnet for nighttime hair protection, and Scalp Massage Brush for wash-day scalp care.<br><br><small>GlowAI provides general beauty, lifestyle and fitness guidance and does not diagnose or treat medical conditions.</small>'}}
+function generateSmartPlan(){const g=document.getElementById('goal').value.trim(),r=document.getElementById('result'),q=g.toLowerCase();if(!g){r.innerHTML='<b>Tell GlowAI your goal first ✦</b>';return}let uses=0;try{uses=Number(localStorage.getItem('glowaiPlanUses')||0)}catch(e){}if(uses>=3){closeModal();document.getElementById('paywallModal').classList.add('open');return}try{localStorage.setItem('glowaiPlanUses',String(uses+1))}catch(e){}const safe=g.replace(/[<>]/g,'');let items=['Choose your top priority and make it specific.','Build a simple routine you can realistically maintain.','Use GlowAI products that match your goal.','Track your progress weekly and adjust what works.'];if(/acne|breakout|pimple|pimples/.test(q))items=['Gently cleanse without scrubbing or picking.','Keep your routine simple and consistent.','Use the Ice Face Roller briefly on clean, intact skin for temporary cooling; do not press hard.','Keep hair products away from your face when possible.','If acne is painful, severe, scarring, or persistent, consider seeing a dermatologist.'];else if(/skin|skincare|skin care|glow|pores|blackhead|dry skin|oily skin/.test(q))items=['Start with a gentle cleanse that fits your skin.','Keep your routine simple rather than adding many products at once.','Moisturize as needed for your skin type.','Use sunscreen during the daytime when appropriate.','Patch-test new products and stop if your skin becomes irritated.'];else if(/lose weight|weight loss|weightloss|lose fat|fat loss|workout|exercise|get fit|fitness/.test(q))items=['Warm up for 5–10 minutes.','Do squats: 3 sets × 10–12 reps.','Do incline push-ups: 3 × 8–12 reps.','Do glute bridges: 3 × 12–15 reps.','Walk for 20–30 minutes.','Increase activity gradually and stop if you feel sharp pain, dizziness, or unwell.'];else if(/hair|haircare|hair care|curl|bonnet|scalp|frizz|split ends/.test(q))items=['Wash according to your hair type and needs.','Use the Scalp Massage Brush gently during shampooing.','Condition the lengths of your hair as appropriate.','Reduce unnecessary heat and rough handling.','Use the GlowAI Silk Sleeping Bonnet at night to reduce friction.'];else if(/makeup|beauty|style|outfit|fashion/.test(q))items=['Choose 2–3 outfit colors you enjoy.','Pick an easy hairstyle you can repeat.','Build accessories that work with multiple outfits.','Save reference looks that match your aesthetic.','Keep your routine realistic and easy to maintain.'];r.innerHTML='<b>Your GlowAI plan ✦</b><p style="margin:8px 0 14px">Built around: <b>'+safe+'</b></p><ol style="padding-left:22px;line-height:1.7">'+items.map(x=>'<li>'+x+'</li>').join('')+'</ol><div style="margin-top:14px;padding:12px;border-radius:12px;background:var(--surface2)"><b>Your next step:</b> Start with the first item today.</div><small style="display:block;margin-top:12px">GlowAI provides general beauty, lifestyle and fitness guidance. It does not diagnose or treat medical conditions.</small>'}
+function openGlowPlusCheckout(){
+  const modal=document.getElementById('glowPlusCheckoutModal');
+  if(!modal)return;
+  // The Plus sales/benefits UI is available to everyone. Login is required only
+  // when the visitor presses the actual checkout button.
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  prepareGlowPlusCheckout();
+}
+function startGlowAIPayment(){
+  closePaywall();
+  openGlowPlusCheckout();
+}
+
+const GLOW_PLUS_SHOPIFY_ENDPOINT='https://tryglowai.myshopify.com/api/2026-10/graphql.json';
+const GLOW_PLUS_STOREFRONT_TOKEN='ed7cc08d12bef7361c9eeb978a789cd9';
+const GLOW_PLUS_HANDLE='glow-ai-plus';
+let glowPlusCheckoutInfo=null;
+
+async function glowPlusShopifyRequest(query, variables={}){
+  const response=await fetch(GLOW_PLUS_SHOPIFY_ENDPOINT,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'X-Shopify-Storefront-Access-Token':GLOW_PLUS_STOREFRONT_TOKEN
+    },
+    body:JSON.stringify({query,variables})
+  });
+  if(!response.ok) throw new Error('Shopify returned HTTP '+response.status+'.');
+  const data=await response.json();
+  if(data.errors?.length) throw new Error(data.errors.map(e=>e.message).join(' '));
+  return data.data;
+}
+
+async function loadGlowPlusCheckoutInfo(){
+  if(glowPlusCheckoutInfo)return glowPlusCheckoutInfo;
+  const query=`query GlowPlusProduct($handle:String!){
+    product(handle:$handle){
+      id
+      title
+      variants(first:10){
+        nodes{
+          id
+          title
+          price{amount currencyCode}
+          sellingPlanAllocations(first:20){
+            nodes{
+              checkoutChargeAmount{amount currencyCode}
+              sellingPlan{
+                id
+                name
+                options{name value}
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+  const data=await glowPlusShopifyRequest(query,{handle:GLOW_PLUS_HANDLE});
+  if(!data.product)throw new Error('GlowAI Plus could not be found in Shopify.');
+  const variant=data.product.variants.nodes[0];
+  if(!variant)throw new Error('GlowAI Plus has no purchasable variant.');
+
+  const allocations=variant.sellingPlanAllocations.nodes||[];
+  const sellingPlan=allocations.length ? allocations[0].sellingPlan : null;
+  if(!sellingPlan){
+    throw new Error('GlowAI Plus does not have an active subscription selling plan in Shopify yet.');
+  }
+
+  const allocation=variant.sellingPlanAllocations.nodes.find(
+    a=>a.sellingPlan.id===sellingPlan.id
+  );
+  const price=allocation?.checkoutChargeAmount?.amount || variant.price.amount;
+  const currency=allocation?.checkoutChargeAmount?.currencyCode || variant.price.currencyCode || 'USD';
+
+  glowPlusCheckoutInfo={
+    merchandiseId:variant.id,
+    sellingPlanId:sellingPlan.id,
+    sellingPlanName:sellingPlan.name,
+    price,
+    currency
+  };
+  return glowPlusCheckoutInfo;
+}
+
+function formatGlowPlusPrice(amount,currency){
+  try{
+    return new Intl.NumberFormat('en-US',{style:'currency',currency}).format(Number(amount));
+  }catch(e){
+    return '$'+Number(amount).toFixed(2);
+  }
+}
+
+async function prepareGlowPlusCheckout(){
+  const status=document.getElementById('glow-plus-plan-status');
+  const price=document.getElementById('glow-plus-checkout-price');
+  const button=document.getElementById('glow-plus-checkout-button');
+  if(status)status.textContent='Checking your GlowAI Plus subscription option…';
+  if(button){button.disabled=true;button.textContent='Loading checkout…';}
+  try{
+    const info=await loadGlowPlusCheckoutInfo();
+    if(price)price.textContent=formatGlowPlusPrice(info.price,info.currency)+' / month';
+    if(status)status.textContent=info.sellingPlanName+' · GlowAI Plus';
+    if(button){button.disabled=false;button.textContent='Continue to checkout →';}
+  }catch(error){
+    if(status)status.textContent=error.message||'Could not load the GlowAI Plus checkout.';
+    if(button){button.disabled=true;button.textContent='Checkout unavailable';}
+  }
+}
+
+async function continueToGlowPlusCheckout(){
+  if(!glowSignedInUser){
+    glowPlusCheckoutPendingAfterLogin=true;
+    closeGlowPlusCheckout();
+    openAccountModal();
+    glowAuthMessage('Please log in to continue to secure GlowAI Plus checkout.');
+    return;
+  }
+  const button=document.getElementById('glow-plus-checkout-button');
+  const status=document.getElementById('glow-plus-plan-status');
+  if(button){button.disabled=true;button.textContent='Opening secure checkout…';}
+  if(status)status.textContent='Creating your private GlowAI Plus checkout…';
+
+  try{
+    const info=await loadGlowPlusCheckoutInfo();
+    const mutation=`mutation CreateGlowPlusCheckout($input:CartInput!){
+      cartCreate(input:$input){
+        cart{checkoutUrl}
+        userErrors{field message}
+      }
+    }`;
+    const data=await glowPlusShopifyRequest(mutation,{
+      input:{
+        lines:[{
+          merchandiseId:info.merchandiseId,
+          quantity:1,
+          sellingPlanId:info.sellingPlanId
+        }]
+      }
+    });
+    const errors=data.cartCreate?.userErrors||[];
+    const checkoutUrl=data.cartCreate?.cart?.checkoutUrl;
+    if(errors.length)throw new Error(errors.map(e=>e.message).join(' '));
+    if(!checkoutUrl)throw new Error('Shopify did not return a checkout URL.');
+    window.location.href=checkoutUrl;
+  }catch(error){
+    if(status)status.textContent=error.message||'Could not open checkout. Please try again.';
+    if(button){button.disabled=false;button.textContent='Try checkout again →';}
+  }
+}
+
+function closeGlowPlusCheckout(){
+  const modal=document.getElementById('glowPlusCheckoutModal');
+  if(modal){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+}
+
+function addToCart(name){document.getElementById('cartMsg').textContent=name+' added to your GlowAI cart ✦';window.scrollTo({top:document.getElementById('shop').offsetTop-80,behavior:'smooth'})}
+function loadIceRoller(){}
+loadIceRoller()
+// GlowAI Shopify cart: tokenless Storefront API cart operations.
+try{(function(){
+const endpoint='https://tryglowai.myshopify.com/api/2026-10/graphql.json';
+const cartKey='glowaiShopifyCartId';let cartId=null,cartData=null,busy=false;
+const request=async(query,variables={})=>{let response;try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','X-Shopify-Storefront-Access-Token':'ed7cc08d12bef7361c9eeb978a789cd9'},body:JSON.stringify({query,variables})})}catch(error){throw new Error('Could not reach Shopify. Check the Storefront API access token, API permissions, and browser network/CORS errors.')}if(!response.ok)throw new Error('Shopify returned HTTP '+response.status+'. Check the Storefront API token and its permissions.');const json=await response.json();if(json.errors&&json.errors.length)throw new Error(json.errors.map(e=>e.message).join(' '));return json.data};
+const cartFields='id checkoutUrl totalQuantity cost{subtotalAmount{amount currencyCode}} lines(first:50){edges{node{id quantity cost{amountPerQuantity{amount currencyCode} totalAmount{amount currencyCode}} merchandise{... on ProductVariant{id title product{title}}}}}}';
+function ensureDrawer(){if(document.getElementById('glow-cart-drawer'))return;const nav=document.querySelector('nav');if(!nav||!document.body)return;const trigger=document.createElement('button');trigger.id='glow-cart-trigger';trigger.type='button';trigger.innerHTML='Cart <span id="glow-cart-count">0</span>';trigger.addEventListener('click',openCart);nav.appendChild(trigger);const overlay=document.createElement('div');overlay.id='glow-cart-overlay';overlay.addEventListener('click',closeCart);document.body.appendChild(overlay);const drawer=document.createElement('aside');drawer.id='glow-cart-drawer';drawer.setAttribute('aria-label','Shopping cart');drawer.innerHTML='<div class="glow-cart-head"><h2>Your cart</h2><button class="glow-cart-close" type="button" aria-label="Close cart">×</button></div><div class="glow-cart-items" id="glow-cart-items"><div class="glow-cart-empty">Your cart is empty.</div></div><div class="glow-cart-foot"><div class="glow-cart-subtotal"><span>Subtotal</span><span id="glow-cart-subtotal">—</span></div><button class="glow-cart-checkout" id="glow-cart-checkout" type="button">Checkout securely with Shopify</button><p class="glow-cart-note">Shipping, taxes and final totals are calculated at Shopify checkout.</p></div>';drawer.querySelector('.glow-cart-close').addEventListener('click',closeCart);drawer.querySelector('#glow-cart-checkout').addEventListener('click',checkout);drawer.querySelector('#glow-cart-items').addEventListener('click',cartItemAction);document.body.appendChild(drawer)}
+function openCart(){ensureDrawer();document.getElementById('glow-cart-overlay').classList.add('open');document.getElementById('glow-cart-drawer').classList.add('open')}
+function closeCart(){document.getElementById('glow-cart-overlay')?.classList.remove('open');document.getElementById('glow-cart-drawer')?.classList.remove('open')}
+function money(amount,currency){try{return new Intl.NumberFormat(undefined,{style:'currency',currency}).format(Number(amount))}catch(e){return amount+' '+currency}}
+function renderCart(){ensureDrawer();const edges=cartData?.lines?.edges||[];document.getElementById('glow-cart-count').textContent=cartData?.totalQuantity||0;document.getElementById('glow-cart-subtotal').textContent=cartData?.cost?.subtotalAmount?money(cartData.cost.subtotalAmount.amount,cartData.cost.subtotalAmount.currencyCode):'—';const area=document.getElementById('glow-cart-items');if(!edges.length){area.innerHTML='<div class="glow-cart-empty">Your cart is empty. Add something you love from the GlowAI shop.</div>';return}area.innerHTML=edges.map(({node})=>'<div class="glow-cart-item"><strong>'+escapeText(node.merchandise.product.title)+'</strong><div>'+escapeText(node.merchandise.title)+'</div><div style="margin-top:7px;font-size:13px;color:var(--muted)">Unit price: '+(node.cost?.amountPerQuantity?money(node.cost.amountPerQuantity.amount,node.cost.amountPerQuantity.currencyCode):'—')+'</div><div style="margin-top:4px;font-weight:750">Item total: '+(node.cost?.totalAmount?money(node.cost.totalAmount.amount,node.cost.totalAmount.currencyCode):'—')+'</div><div class="glow-cart-controls"><button type="button" data-cart-action="minus" data-line="'+node.id+'" aria-label="Decrease quantity">−</button><span>'+node.quantity+'</span><button type="button" data-cart-action="plus" data-line="'+node.id+'" aria-label="Increase quantity">+</button><button class="glow-cart-remove" type="button" data-cart-action="remove" data-line="'+node.id+'">Remove</button></div></div>').join('')}
+function escapeText(value){return String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function refreshCart(){if(!cartId)return;const data=await request('query($id:ID!){cart(id:$id){'+cartFields+'}}',{id:cartId});cartData=data.cart;if(!cartData){cartId=null;localStorage.removeItem(cartKey)}renderCart()}
+async function addProduct(handle){if(busy)return;busy=true;ensureDrawer();openCart();const area=document.getElementById('glow-cart-items');area.innerHTML='<div class="glow-cart-status">Adding to your cart…</div>';try{const productData=await request('query($handle:String!){product(handle:$handle){title variants(first:1){edges{node{id availableForSale}}}}}',{handle});const product=productData.product;const variant=product?.variants?.edges?.[0]?.node;if(!variant||!variant.availableForSale)throw new Error('This product is not available through the Storefront API. Check that it is published to the Online Store and has an available variant.');let result;if(cartId){result=await request('mutation($cartId:ID!,$lines:[CartLineInput!]!){cartLinesAdd(cartId:$cartId,lines:$lines){cart{'+cartFields+'} userErrors{message}}}',{cartId,lines:[{merchandiseId:variant.id,quantity:1}]});const payload=result.cartLinesAdd;if(payload.userErrors?.length)throw new Error(payload.userErrors.map(e=>e.message).join(' '));cartData=payload.cart}else{result=await request('mutation($lines:[CartLineInput!]!){cartCreate(input:{lines:$lines}){cart{'+cartFields+'} userErrors{message}}}',{lines:[{merchandiseId:variant.id,quantity:1}]});const payload=result.cartCreate;if(payload.userErrors?.length)throw new Error(payload.userErrors.map(e=>e.message).join(' '));cartData=payload.cart;cartId=cartData.id;localStorage.setItem(cartKey,cartId)}renderCart()}catch(error){area.innerHTML='<div class="glow-cart-status">'+escapeText(error.message)+'</div>'}finally{busy=false}}
+async function cartItemAction(event){const button=event.target.closest('button[data-cart-action]');if(!button||busy||!cartId)return;busy=true;try{const lineId=button.dataset.line,action=button.dataset.cartAction,node=(cartData.lines.edges||[]).find(edge=>edge.node.id===lineId)?.node;if(!node)return;if(action==='remove'||(action==='minus'&&node.quantity===1)){const data=await request('mutation($cartId:ID!,$lineIds:[ID!]!){cartLinesRemove(cartId:$cartId,lineIds:$lineIds){cart{'+cartFields+'} userErrors{message}}}',{cartId,lineIds:[lineId]});if(data.cartLinesRemove.userErrors?.length)throw new Error(data.cartLinesRemove.userErrors[0].message);cartData=data.cartLinesRemove.cart}else{const quantity=node.quantity+(action==='plus'?1:-1);const data=await request('mutation($cartId:ID!,$lines:[CartLineUpdateInput!]!){cartLinesUpdate(cartId:$cartId,lines:$lines){cart{'+cartFields+'} userErrors{message}}}',{cartId,lines:[{id:lineId,quantity}]});if(data.cartLinesUpdate.userErrors?.length)throw new Error(data.cartLinesUpdate.userErrors[0].message);cartData=data.cartLinesUpdate.cart}renderCart()}catch(error){document.getElementById('glow-cart-items').innerHTML='<div class="glow-cart-status">'+escapeText(error.message)+'</div>'}finally{busy=false}}
+async function checkout(){if(!cartId)return;if(!requireGlowLoginForCheckout())return;const button=document.getElementById('glow-cart-checkout');button.disabled=true;button.textContent='Preparing checkout…';try{await refreshCart();if(!cartData?.totalQuantity)throw new Error('Your cart is empty.');
+const isPlus=!!(glowSignedInUser&&GLOWAI_PLUS_TEST_EMAILS.has(String(glowSignedInUser.email||'').trim().toLowerCase()));
+if(isPlus){
+  const discountResult=await request('mutation($cartId:ID!,$discountCodes:[String!]!){cartDiscountCodesUpdate(cartId:$cartId,discountCodes:$discountCodes){cart{'+cartFields+'}userErrors{message}}}',{cartId,discountCodes:['GLOWAI10']});
+  const discountErrors=discountResult.cartDiscountCodesUpdate?.userErrors||[];
+  if(discountErrors.length)throw new Error(discountErrors.map(e=>e.message).join(' '));
+  cartData=discountResult.cartDiscountCodesUpdate.cart;renderCart();
+}
+window.location.href=cartData.checkoutUrl}catch(error){document.getElementById('glow-cart-items').innerHTML='<div class="glow-cart-status">'+escapeText(error.message)+'</div>';button.disabled=false;button.textContent='Checkout securely with Shopify'}}
+document.querySelectorAll('a[href*="tryglowai.myshopify.com/products/"]').forEach(link=>{const handle=new URL(link.href,window.location.href).pathname.split('/products/')[1]?.split('/')[0];if(!handle)return;const button=document.createElement('button');button.type='button';button.className=link.className;button.textContent='Add to cart';button.style.cssText=link.getAttribute('style')||'';button.dataset.glowAdd=handle;link.replaceWith(button)});
+document.querySelectorAll('[data-glow-add="glowai-smooth-lip-balm"]').forEach(button=>{button.dataset.glowAdd='20-30g-lip-skin-care-products-moisturizing-lip'});
+document.querySelectorAll('[data-glow-add="glowai-collagen-face-mask"]').forEach(button=>{button.dataset.glowAdd='collagen-crystal-jelly-skin-moisturizing-mask'});
+document.addEventListener('click',event=>{if(event.target.closest('#glow-cart-floating')){event.preventDefault();openCart();return}const button=event.target.closest('button[data-glow-add]');if(!button)return;event.preventDefault();addProduct(button.dataset.glowAdd)},true);
+ensureDrawer();try{cartId=localStorage.getItem(cartKey)}catch(e){}if(cartId)refreshCart().catch(()=>{cartId=null;try{localStorage.removeItem(cartKey)}catch(e){}renderCart()});else renderCart();document.addEventListener('keydown',event=>{if(event.key==='Escape')closeCart()});
+})();}catch(error){console.error('GlowAI cart initialization failed:',error)}
+document.getElementById('modal')?.addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});document.getElementById('paywallModal')?.addEventListener('click',e=>{if(e.target.id==='paywallModal')closePaywall()});document.getElementById('resetPasswordModal')?.addEventListener('click',e=>{if(e.target.id==='resetPasswordModal')closeResetPassword()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePaywall();closeResetPassword()}})
+// Supabase email/password authentication for GlowAI accounts + password recovery.
+const glowSupabase = window.supabase.createClient('https://zemtiarotfjfwkmoqziu.supabase.co','sb_publishable_4_BMevbVVJcgAJFvTnwC7Q_ZoL8iAvv');
+let glowSignedInUser = null;
+let glowPasswordRecoveryActive = false;
+let glowAIPendingAfterLogin = false;
+let glowCheckoutPendingAfterLogin = false;
+let glowPlusCheckoutPendingAfterLogin = false;
+
+// GLOW AI is available only to authenticated GlowAI accounts.
+function openGlowAIProtected(){
+  if(glowSignedInUser){ openModal(); return; }
+  glowAIPendingAfterLogin = true;
+  openAccountModal();
+  glowAuthMessage('Please log in to continue to GLOW AI.');
+}
+
+function continuePendingGlowAI(){
+  if(!glowAIPendingAfterLogin || !glowSignedInUser) return;
+  glowAIPendingAfterLogin = false;
+  closeAccountModal();
+  setTimeout(()=>openModal(),120);
+}
+
+function requireGlowLoginForCheckout(){
+  if(glowSignedInUser) return true;
+  glowCheckoutPendingAfterLogin = true;
+  closeAccountModal();
+  openAccountModal();
+  glowAuthMessage('Please log in to continue to secure checkout.');
+  return false;
+}
+
+function continuePendingCheckout(){
+  if(!glowSignedInUser) return;
+  if(glowCheckoutPendingAfterLogin){
+    glowCheckoutPendingAfterLogin = false;
+    closeAccountModal();
+    setTimeout(()=>{
+      const checkoutButton=document.getElementById('glow-cart-checkout');
+      checkoutButton?.click();
+    },120);
+  }
+  if(glowPlusCheckoutPendingAfterLogin){
+    glowPlusCheckoutPendingAfterLogin = false;
+    closeAccountModal();
+    setTimeout(()=>{
+      openGlowPlusCheckout();
+      setTimeout(()=>continueToGlowPlusCheckout(),150);
+    },120);
+  }
+}
+
+function glowAuthMessage(text, isError=false){
+  const message=document.getElementById('glow-auth-message');
+  if(message){
+    message.textContent=text||'';
+    message.style.color=isError?'#ff8eae':'var(--muted)';
+  }
+}
+
+async function openForgotPassword(){
+  const emailInput=document.getElementById('glow-account-email');
+  const email=(emailInput?.value||'').trim();
+  const message=document.getElementById('glow-auth-message');
+  if(!email){
+    glowAuthMessage('Enter your email address first so we know where to send the reset link.',true);
+    emailInput?.focus();
+    return;
+  }
+  const button=document.querySelector('#glow-forgot-wrap button');
+  if(button){button.disabled=true;button.textContent='Sending…';}
+  glowAuthMessage('');
+  try{
+    const redirectTo=window.location.origin+'/reset-password.html';
+    const {error}=await glowSupabase.auth.resetPasswordForEmail(email,{redirectTo});
+    if(error)throw error;
+    // Deliberately use the same message whether or not an account exists.
+    glowAuthMessage('If an account exists for that email, we sent a password reset link. Check your inbox and spam folder.');
+  }catch(error){
+    glowAuthMessage(error.message||'Could not send the reset email. Please try again.',true);
+  }finally{
+    if(button){button.disabled=false;button.textContent='Forgot password?';}
+  }
+}
+
+function openResetPassword(){
+  const modal=document.getElementById('resetPasswordModal');
+  if(modal)modal.classList.add('open');
+  const message=document.getElementById('glow-reset-message');
+  if(message){message.textContent='';message.style.color='var(--muted)';}
+  setTimeout(()=>document.getElementById('glow-new-password')?.focus(),80);
+}
+
+function closeResetPassword(){
+  document.getElementById('resetPasswordModal')?.classList.remove('open');
+}
+
+async function handleResetPasswordSubmit(event){
+  event.preventDefault();
+  const password=document.getElementById('glow-new-password')?.value||'';
+  const confirm=document.getElementById('glow-confirm-password')?.value||'';
+  const message=document.getElementById('glow-reset-message');
+  const submit=document.getElementById('glow-reset-submit');
+  if(password.length<8){
+    if(message){message.textContent='Your password must be at least 8 characters.';message.style.color='#ff8eae';}
+    return false;
+  }
+  if(password!==confirm){
+    if(message){message.textContent='The passwords do not match.';message.style.color='#ff8eae';}
+    return false;
+  }
+  if(submit){submit.disabled=true;submit.textContent='Updating…';}
+  if(message){message.textContent='';}
+  try{
+    const {error}=await glowSupabase.auth.updateUser({password});
+    if(error)throw error;
+    if(message){
+      message.textContent='Password updated successfully. You’re now signed in.';
+      message.style.color='var(--good)';
+    }
+    glowPasswordRecoveryActive=false;
+    setTimeout(()=>{
+      closeResetPassword();
+      if(window.location.hash.includes('type=recovery')){
+        history.replaceState(null,document.title,window.location.pathname+window.location.search);
+      }
+    },1200);
+  }catch(error){
+    if(message){
+      message.textContent=error.message||'Could not update your password. Please request a new reset link.';
+      message.style.color='#ff8eae';
+    }
+  }finally{
+    if(submit){submit.disabled=false;submit.textContent='Update password';}
+  }
+  return false;
+}
+
+async function handleGlowAuthSubmit(event){
+  event.preventDefault();
+  const email=document.getElementById('glow-account-email').value.trim();
+  const password=document.getElementById('glow-account-password').value;
+  const submit=document.getElementById('glow-auth-submit');
+  if(!email||!password)return false;
+  submit.disabled=true;
+  submit.classList.add('auth-disabled');
+  submit.textContent=glowAuthMode==='signup'?'Creating account…':'Logging in…';
+  glowAuthMessage('');
+  try{
+    if(glowAuthMode==='signup'){
+      const {data,error}=await glowSupabase.auth.signUp({email,password,data:{username:email.split('@')[0]}});
+      if(error)throw error;
+      if(data.session){
+        glowSignedInUser=data.user;
+        glowAuthMessage('Your account has been created and you are signed in.');
+      }else{
+        glowAuthMessage('Check your email for a confirmation link to finish creating your account.');
+      }
+    }else{
+      const {data,error}=await glowSupabase.auth.signInWithPassword({email,password});
+      if(error)throw error;
+      glowSignedInUser=data.user;
+      glowAuthMessage('You are now logged in.');
+    }
+    if(glowSignedInUser){
+      if(glowAIPendingAfterLogin){ continuePendingGlowAI(); }
+      else setTimeout(closeAccountModal,1200);
+    }
+  }catch(error){
+    const authError=String(error?.message||'');
+    const isInvalidCredentials=/invalid login credentials|invalid password|invalid credentials/i.test(authError);
+    glowAuthMessage(glowAuthMode==='login' && isInvalidCredentials ? 'Invalid password. Try again.' : (authError||'Authentication failed. Please try again.'),true);
+    // Keep the login modal open after an authentication error so the user can try again.
+    document.getElementById('accountModal')?.classList.add('open');
+    document.getElementById('glow-account-password')?.focus();
+  }finally{
+    submit.disabled=false;
+    submit.classList.remove('auth-disabled');
+    submit.textContent=glowAuthMode==='signup'?'Sign up with email':'Log in';
+  }
+  return false;
+}
+
+// Supabase recovery links return to this page with a recovery session in the URL.
+if(window.location.hash.includes('type=recovery')) glowPasswordRecoveryActive=true;
+glowSupabase.auth.getSession().then(({data})=>{
+  glowSignedInUser=data.session?.user||null;
+  if(glowPasswordRecoveryActive)openResetPassword();
+});
+glowSupabase.auth.onAuthStateChange((event,session)=>{
+  glowSignedInUser=session?.user||null;
+  if(glowSignedInUser && event!=='PASSWORD_RECOVERY'){ continuePendingGlowAI(); continuePendingCheckout(); }
+  if(event==='PASSWORD_RECOVERY'){
+    glowPasswordRecoveryActive=true;
+    openResetPassword();
+  }
+});
+document.getElementById('glow-auth-submit')?.removeAttribute('disabled');
+document.getElementById('glow-auth-submit')?.classList.remove('auth-disabled');
+
+// Temporary front-end Plus preview access for the designated test account only.
+const GLOWAI_PLUS_TEST_EMAILS=new Set(['tryuglow@gmail.com']);
+function updateGlowAIMembership(user){const isPlus=GLOWAI_PLUS_TEST_EMAILS.has((user?.email||'').trim().toLowerCase());const accountButton=document.querySelector('.account-btn');if(accountButton){accountButton.innerHTML='<span class="account-user-icon">♙</span><span>'+ (user?'Account':'Log in') +'</span>';accountButton.title=user?'Account':'Log in';accountButton.querySelector('.glowai-gold-badge')?.remove();if(isPlus){const badge=document.createElement('span');badge.className='glowai-gold-badge';badge.textContent=' ✦';badge.title='GlowAI Plus';badge.setAttribute('aria-label','GlowAI Plus member');badge.style.cssText='color:#d6a52c;font-weight:900;margin-left:5px';accountButton.appendChild(badge)}}const discordLabel=document.querySelector('#membership .cards .card:last-child p:last-child');if(discordLabel)discordLabel.textContent=isPlus?'✦ GlowAI Plus access active':'🔒 Exclusive access for GlowAI Plus members';}
+glowSupabase.auth.getSession().then(({data})=>updateGlowAIMembership(data.session?.user||null));
+glowSupabase.auth.onAuthStateChange((_event,session)=>updateGlowAIMembership(session?.user||null));
+// Three lifetime free AI chat replies per browser; the designated Plus test account is exempt.
+const GLOWAI_FREE_CHAT_USES_KEY='glowaiFreeChatUsesV2';
+function glowAIHasPreviewPlus(){return GLOWAI_PLUS_TEST_EMAILS.has((glowSignedInUser?.email||'').trim().toLowerCase())}
+function glowAIGetFreeChatUses(){try{return Math.max(0,Number(localStorage.getItem(GLOWAI_FREE_CHAT_USES_KEY)||0))}catch(e){return 0}}
+function glowAIShowPlusOfferAfterThreeTurns(){if(glowAIHasPreviewPlus())return;const count=glowAIGetFreeChatUses();if(count>=3){closeModal();document.getElementById('paywallModal')?.classList.add('open')}}
+const glowAIOriginalHandlePlanSubmit=handlePlanSubmit;
+handlePlanSubmit=async function(){if(!glowAIHasPreviewPlus()&&glowAIGetFreeChatUses()>=3){closeModal();document.getElementById('paywallModal').classList.add('open');return}const before=glowCurrentMessages.length;await glowAIOriginalHandlePlanSubmit();const latest=glowCurrentMessages[glowCurrentMessages.length-1];if(!glowAIHasPreviewPlus()&&glowCurrentMessages.length>before&&latest?.role==='assistant'&&!latest.content.startsWith('I could not reach your AI coach:')){try{localStorage.setItem(GLOWAI_FREE_CHAT_USES_KEY,String(glowAIGetFreeChatUses()+1))}catch(e){}glowAIShowPlusOfferAfterThreeTurns()}};
+// Press Enter to send a GlowAI message. Shift+Enter keeps the normal newline behavior.
+const GLOWAI_CAMERA_USES_KEY='glowAICameraUsesV1'; function glowAIGetCameraUses(){try{return Math.max(0,Number(localStorage.getItem(GLOWAI_CAMERA_USES_KEY)||0))}catch(e){return 0}} function glowAISetCameraUses(n){try{localStorage.setItem(GLOWAI_CAMERA_USES_KEY,String(n))}catch(e){}} function glowAIHandleCameraClick(){if(glowAIHasPreviewPlus()){document.getElementById('glow-camera-input')?.click();return} if(glowAIGetCameraUses()>=1){closeModal();document.getElementById('paywallModal')?.classList.add('open');return} document.getElementById('glow-camera-input')?.click()} document.getElementById('glow-camera-input')?.addEventListener('change',function(){const file=this.files?.[0];if(file&&!glowAIHasPreviewPlus()){glowAISetCameraUses(glowAIGetCameraUses()+1)}handleGlowImageFile(file)});document.getElementById('glow-file-input')?.addEventListener('change',function(){handleGlowImageFile(this.files?.[0])});
+document.getElementById('goal')?.addEventListener('keydown',function(event){if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();if(!this.value.trim())return;const button=document.getElementById('glowai-send');if(button?.disabled)return;handlePlanSubmit();}});
+// Updated Plus Discord access and signed-in profile menu.
+const GLOWAI_DISCORD_INVITE='https://discord.gg/4xpPQcRRg';
+const glowAccountDialog=document.querySelector('#accountModal .dialog');
+const glowAccountLoginMarkup=glowAccountDialog?.innerHTML||'';
+function updateGlowAIMembership(user){const isPlus=GLOWAI_PLUS_TEST_EMAILS.has((user?.email||'').trim().toLowerCase());const accountButton=document.querySelector('.account-btn');if(accountButton){accountButton.innerHTML='<span class="account-user-icon">♙</span><span>'+(user?'Account':'Log in')+'</span>';accountButton.title=user?'Account':'Log in';accountButton.querySelector('.glowai-gold-badge')?.remove();if(isPlus){const badge=document.createElement('span');badge.className='glowai-gold-badge';badge.textContent=' ✦';badge.title='GlowAI Plus';badge.setAttribute('aria-label','GlowAI Plus member');badge.style.cssText='color:#d6a52c;font-weight:900;margin-left:5px';accountButton.appendChild(badge)}}const discordLabel=document.getElementById('glowai-discord-access');if(discordLabel){discordLabel.innerHTML=isPlus?'✦ <a href="'+GLOWAI_DISCORD_INVITE+'" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline">Join the GlowAI Discord →</a>':'🔒 Exclusive access for GlowAI Plus members';}}
+function openAccountModal(){if(!glowAccountDialog)return;if(glowSignedInUser){const email=String(glowSignedInUser.email||'Account');const username=String(glowSignedInUser.user_metadata?.username||email.split('@')[0]||'user');const safeUsername=username.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const isPlus=GLOWAI_PLUS_TEST_EMAILS.has(email.trim().toLowerCase());glowAccountDialog.innerHTML='<button class="close" type="button" onclick="closeAccountModal()">×</button><div style="text-align:center;padding:22px 8px 12px"><div style="width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:var(--surface2);font-size:28px">♙</div><h2 style="margin:0 0 7px">Your profile</h2><p style="color:var(--muted);margin:0;overflow-wrap:anywhere">@'+safeUsername+'</p>'+(isPlus?'<p style="color:#d6a52c;font-weight:800;margin:12px 0 0">✦ GlowAI Plus member · 10% off products</p>':'<p style="color:var(--muted);font-size:13px;margin:12px 0 0">Free account</p>')+'</div><div class="glow-order-history"><h3>Order history</h3><p>View your Shopify purchases here. Purchased products can be reviewed from the order history after delivery when review collection is enabled.</p><a class="primary" href="https://tryglowai.myshopify.com/account/orders" target="_blank" rel="noopener noreferrer" style="text-decoration:none">View my orders & reviews →</a></div><button class="ghost" type="button" style="width:100%;margin-top:12px" onclick="handleGlowSignOut()">Sign out</button>';}else{if(glowAccountDialog.innerHTML!==glowAccountLoginMarkup)glowAccountDialog.innerHTML=glowAccountLoginMarkup;setAuthMode('login')}document.getElementById('accountModal').classList.add('open')}
+async function handleGlowSignOut(){const button=glowAccountDialog?.querySelector('button[onclick="handleGlowSignOut()"]');if(button){button.disabled=true;button.textContent='Signing out…'}const {error}=await glowSupabase.auth.signOut();if(error){if(button){button.disabled=false;button.textContent='Sign out'}return}glowSignedInUser=null;updateGlowAIMembership(null);closeAccountModal()}
+glowSupabase.auth.getSession().then(({data})=>updateGlowAIMembership(data.session?.user||null));
+glowSupabase.auth.onAuthStateChange((_event,session)=>{
+  glowSignedInUser=session?.user||null;
+  updateGlowAIMembership(glowSignedInUser);
+  if(!glowSignedInUser) closeGlowPlusCheckout();
+});
+</script>
+<script>
+(function(){
+  try{
+    const params=new URLSearchParams(window.location.search);
+    if(params.get('password-reset')==='success'){
+      const toast=document.getElementById('glow-password-reset-toast');
+      if(toast){toast.style.display='block';setTimeout(()=>toast.style.display='none',5000);}
+      const clean=window.location.pathname;
+      window.history.replaceState(null,document.title,clean);
+    }
+  }catch(e){}
+})();
+</script>
+</body></html>

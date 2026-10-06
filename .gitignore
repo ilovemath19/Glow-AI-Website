@@ -1,0 +1,22 @@
+# Secrets / local environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencies / build output
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
